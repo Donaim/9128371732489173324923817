@@ -17,7 +17,7 @@ void testFiniteContains(){
     init.Add(Natural{200});
     init.Add(Natural{-1});
     init.AddCustom('c');
-    init.AddCustom(init);
+    // init.AddCustom(init);
     const FiniteSet set{init};
 
     cout << set.Contains(Natural{1}) << endl;
@@ -41,7 +41,6 @@ void testFiniteIncludes(){
     // i2.AddCustom(4);
     const FiniteSet set2{i2};
 
-    // cout << set1.Contains(Natural{4}) << endl;
     cout << (set1.Includes(set2)) << endl;
     cout << (set2.Includes(set1)) << endl;
     cout << (set1 == set2) << endl; //double includes

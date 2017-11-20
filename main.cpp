@@ -13,8 +13,8 @@ using namespace std;
 
 int main(void){
 
-    testFiniteIncludes();
     testFiniteContains();
+    testFiniteIncludes();
 
     return 0;
 }

@@ -30,15 +30,22 @@ struct RulePtr
 
 template <class T>
 class IComparable : public virtual Element {
+public:
     virtual bool equal(const T& a, const T& b) const = 0;
     
     bool operator == (const Element& o) const override {
-        const T* a = ToType<const T*>(this);
         const T* b = ToType<const T*>(&o);
-        
-        if(b) {return equal(*a, *b);}
+        if(b) 
+        {
+            const T* a = ToType<const T*>(this);
+            return equal(*a, *b);
+        }
         else {return false;}
     } 
+    bool operator == (const T& o) const {
+        const T* a = ToType<const T*>(this);
+        return equal(*a, o);
+    }
 };
 
 

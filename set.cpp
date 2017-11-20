@@ -28,7 +28,7 @@ bool Set::Includes(const Set& s) const {
     }
 }
 bool Set::equal (const Set& a, const Set& b) const {return a.Includes(b) && b.Includes(a);}
-bool Set::operator ==(const Set& o) const{ return equal(*this, o); }
+//bool Set::operator ==(const Set& o) const{ return equal(*this, o); }
 bool Set::operator >=(const Set& o) const{ return this->Includes(o); }
 bool Set::operator <=(const Set& o) const{ return o.Includes((*this)); }
 

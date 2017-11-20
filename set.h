@@ -16,7 +16,7 @@ class Set : public virtual Element, public virtual IComparable<Set> {
     bool virtual Includes(const Set& s) const ;
     bool equal(const Set& a, const Set& b) const override;
 
-    bool operator ==(const Set& o) const ;
+    //bool operator ==(const Set& o) const ;
     bool operator >=(const Set& o) const ;
     bool operator <=(const Set& o) const ;
 };
