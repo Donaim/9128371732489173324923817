@@ -1,8 +1,8 @@
 #pragma once
 
 #include "util.cpp"
-#include "base.h"
-#include "initializator.h"
+#include "set.h"
+#include "initializator.cpp"
 
 #include <iostream>
 using namespace std;

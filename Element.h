@@ -15,8 +15,6 @@ public:
     virtual bool operator ==(const Element& other) const = 0;
 };
 
-//class StaticElement;
-
 class UniqueElement : public Element{
 public:
     bool operator ==(const Element& other) const override {return false;}
