@@ -34,6 +34,7 @@ int main(void){
 
     Initial i1;
     i1.AddCustom(3);
+    i1.AddCustom(6);
     i1.Add(Natural{3});
     i1.Add(Natural{4});
     i1.AddCustom('a');
@@ -45,9 +46,10 @@ int main(void){
     // i2.AddCustom(4);
     const FiniteSet set2{i2};
 
-    // cout << set1.Contains(Natural{4}) << endl;
-    // cout << (set1.Includes(set2)) << endl;
-    // cout << (set1 == set2) << endl;
+    cout << set1.Contains(Natural{4}) << endl;
+    cout << (set1.Includes(set2)) << endl;
+    cout << (set2.Includes(set1)) << endl;
+    cout << (set1 == set2) << endl;
 
     // list[0] = Natural{3};
 
