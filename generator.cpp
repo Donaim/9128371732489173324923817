@@ -12,7 +12,13 @@ struct GenParams {
     int RandStart   = 10000;
     int RandEnd     = 100000;
     int RandCount   = 100;
+
+    friend ostream& operator << (ostream& os, const GenParams& me);
 };
+ostream& operator << (ostream& os, const GenParams& me){
+    os << '[' << "SeqStart: " << me.SeqStart << ';' << ' ' << "SeqCount: " << me.SeqCount << ';' << ' '
+    << "RandStart: " << me.RandStart << ';' << ' ' << "RandEnd: " << me.RandEnd << ';' << ' ' << "RandCout: " << me.RandCount << ';' << ']';
+}
 
 class IGeneratable {
 protected:
@@ -21,16 +27,20 @@ protected:
     virtual int NextRand(int down, int up) const { return (int)((rand() / (float)RAND_MAX) * (up - down) + down); }
 public:
     virtual FiniteSet& Generate(const GenParams& p) const {
-        Initial zz{};
+        Initial* zz = new Initial{};
+
+        // cout << p << endl;
         
         for(int i = p.SeqStart, to = p.SeqStart + p.SeqCount; i < to; i++){
-            zz.Add(GenElement(i, 0));
+            zz->Add(GenElement(i, 0));
         }
         for(int i = 0, to = p.RandCount; i < to; i++){
-            zz.Add(GenElement(NextRand(p.RandStart, p.RandEnd), 1));
+            zz->Add(GenElement(NextRand(p.RandStart, p.RandEnd), 1));
         }
 
-        return *new FiniteSet(zz);
+        cout << "Inited size = " << zz->size() << endl;
+
+        return *new FiniteSet(*zz);
     }
 };
 
