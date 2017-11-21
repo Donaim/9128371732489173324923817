@@ -10,13 +10,13 @@ bool FiniteSet::Contains(const Element& e) const {
     }
     return false;
 }
-bool FiniteSet::ForAll(RulePtr& r) const {
+bool FiniteSet::ForAll(const RulePtr& r) const {
     for(int i = 0; i < Size; i++){
         if(!r.F(*list[i])) {return false;}
     }
     return true;
 }
-bool FiniteSet::Exists(RulePtr& r) const {
+bool FiniteSet::Exists(const RulePtr& r) const {
     for(int i = 0; i < Size; i++){
         if(r.F(*list[i])) {return true;}       
     }  

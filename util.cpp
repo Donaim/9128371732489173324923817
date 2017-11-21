@@ -78,8 +78,8 @@ class StaticElement : public virtual Element, public virtual IComparable<StaticE
 
         return copy;
     }
-    protected:
-    public:
+protected:
+public:
     template <typename T> 
     explicit StaticElement(T x) : obj(cpy(x)), size(sizeof(x)), id(type_index(typeid(x)).hash_code()) 
     {
@@ -92,8 +92,8 @@ class StaticElement : public virtual Element, public virtual IComparable<StaticE
         cout << "Created StaticElement: " << *this << ';' << endl;
     }
     void Print(ostream& os) const override {
-        os << '[' << ' ';
-        for(int i = 0; i < size; i++){ os << (int)obj[i] << ' ' ;}
+        os << '[' << '|';
+        for(int i = 0; i < size; i++){ os << (int)obj[i] << '|' ;}
         os << ']';
     }
 

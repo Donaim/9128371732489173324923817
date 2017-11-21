@@ -14,13 +14,13 @@ bool Set::Includes(const Set& s) const {
     const IForAll* o = ToType<const IForAll*>(&s);
     if(o) 
     { 
-        RulePtr rule { [this](const Element& e){ return this->Contains(e); } };
+        const RulePtr rule { [this](const Element& e){ return this->Contains(e); } };
         return o->ForAll(rule);
     }
     else 
     {
     #if INCLUDE_ERRORS
-            throw "Set does not support ForAll quantifikator :(";
+        throw "Set does not support ForAll quantifikator :(";
     #endif
         return false;
     }

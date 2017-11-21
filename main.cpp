@@ -13,7 +13,7 @@
 
 using namespace std;
 
-int main(void){
+int main(void){ cout << "START" << endl;
 
     // testFiniteContains();
     // testFiniteIncludes();
@@ -23,7 +23,11 @@ int main(void){
     // testFiniteInfiniteIntersect();
     // testFiniteInfiniteSubstract();
     // testFiniteIntersect_InfiniteSumInfinite();    
-    testGenerator();
+    // testGenerator();
+    // testDivisionExample();
+    // testQuantifikatorExample();
+    testPrimeQuantifikatorExample();
+
 
     return 0;
 }

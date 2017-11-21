@@ -13,8 +13,8 @@ public:
 
     bool Contains(const Element& e) const override;
 
-    bool ForAll(RulePtr& r) const override ;
-    bool Exists(RulePtr& r) const override ;
+    bool ForAll(const RulePtr& r) const override ;
+    bool Exists(const RulePtr& r) const override ;
 
     Set& Sum(const Set& b) const override ;
     Set& Intersect(const Set& b) const override ;

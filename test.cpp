@@ -174,3 +174,49 @@ void testGenerator(){
     auto set = Naturals{}.Generate(GenParams{1, 1000, 1000, 2000, 100});
     cout << set << endl;
 }
+
+bool isDiv(const Element& e){
+    auto n = ToType<const Natural*>(&e);
+    return n->X % 2 == 0;
+}
+void testDivisionExample(){
+    Naturals N{};
+    SubSet divis{N, RulePtr { [](const Element& e) { return isDiv(e); }}};
+    SubSet d3{N, RulePtr { [](const Element& e) { return ToType<const Natural*>(&e)->X % 3 == 0; }}};
+    FiniteSet set = Naturals{}.Generate(GenParams{1, 1000, 1000, 2000, 100});
+    cout << (FiniteSet&)set.Intersect(divis.Intersect(d3)) << endl;
+}
+void testQuantifikatorExample(){
+    // Naturals N{};
+    // SubSet divis{N, RulePtr { [](const Element& e) { return isDiv(e); }}};
+    FiniteSet set = Naturals{}.Generate(GenParams{1, 1000, 1000, 2000, 100});
+    SubSet sub{set, RulePtr{[&set](const Element& e)
+        {
+            auto n = ToType<const Natural*>(&e);
+            return set.Exists(RulePtr { [n](const Element& x) { return ToType<const Natural*>(&x)->X * n->X == 10; }});
+    }}};
+    
+    // cout << (FiniteSet&)sub << endl;
+    cout << set.Size << endl;
+    cout << (FiniteSet&)set.Intersect(sub) << endl;
+}
+void testPrimeQuantifikatorExample(){
+    FiniteSet set = Naturals{}.Generate(GenParams{1, 500, 500, 1000, 100});
+    SubSet sub{set, RulePtr{[&set](const Element& e)
+    {
+        auto x = ToType<const Natural*>(&e);
+        return set.ForAll(RulePtr { [&set, x](const Element& aa) 
+        {
+            auto a = ToType<const Natural*>(&aa);
+            return set.ForAll(RulePtr { [&set, x, a](const Element& bb) 
+            {
+                auto b = ToType<const Natural*>(&bb);
+                if(a->X * b->X == x->X) { return a->X == 1 || b->X == 1; }
+                else { return true; }
+            }});
+        }});
+    }}};
+    
+    // cout << (FiniteSet&)sub << endl;
+    cout << (FiniteSet&)set.Intersect(sub) << endl;
+}

@@ -40,10 +40,10 @@ public:
 };
 
 class IForAll {
-public: virtual bool ForAll(RulePtr& r) const = 0;
+public: virtual bool ForAll(const RulePtr& r) const = 0;
 };
 class IExists{
-public: virtual bool Exists(RulePtr& r) const = 0;
+public: virtual bool Exists(const RulePtr& r) const = 0;
 };
 
 class Uniwersum : public Set, public IForAll, public IExists{
@@ -51,8 +51,8 @@ public:
     bool Contains(const Element& e) const override {return true;}
     bool Includes(const Set& s) const override {return true;}
     
-    bool ForAll(RulePtr& r) const override {return false;}
-    bool Exists(RulePtr& r) const override {return true;}
+    bool ForAll(const RulePtr& r) const override {return false;}
+    bool Exists(const RulePtr& r) const override {return true;}
 
     Set& Sum(const Set& b) const override {return (Set&)*this;}
     Set& Intersect(const Set& b) const override {return (Set&)b;}
