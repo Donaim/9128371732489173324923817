@@ -18,10 +18,7 @@ public:
     void Print(ostream& os) const override { os << X; }
 };
 
-class Naturals : public Set {
+class Naturals : public FunctionalSet {
 public:
-    Naturals() : Set() {}
     bool Contains(const Element& e) const override { return IsTypeOf<Natural>(&e); }
-
-    //static FiniteSet Create()
 };

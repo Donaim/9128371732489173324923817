@@ -24,28 +24,37 @@ bool FiniteSet::Exists(RulePtr& r) const {
 }
 Set& FiniteSet::Sum(const Set& b) const {
     const FiniteSet* bb = ToType<const FiniteSet*>(&b);
-    if(bb){
-        // auto c = bb->Includes(*this);
+    if(bb) {
+        int n = bb->Size + this->Size;
+        const Element** nlist = new const Element*[n];
+        for(int i = 0; i < this->Size; i++) {nlist[i] = this->list[i];}
+        for(int i = 0, k = this->Size; k < n; i++, k++) {nlist[k] = bb->list[i];}
 
-        auto n = bb->Size + this->Size;
-        Element** nlist = new Element*[n];
-        for(int i = 0; i < this->Size; i++) {nlist[i] = (Element*)this->list[i];}
-        for(int i = 0, k = this->Size; k < n; i++, k++) {nlist[k] = (Element*)bb->list[i];}
-
-        return *new FiniteSet((const Element**)nlist, n);
-        // return ((FiniteSet&)(*bb));
+        return *new FiniteSet(nlist, n);
     }
-    else {
-        const FunctionalSet* cc = ToType<const FunctionalSet*>(&b);
-        if(cc){ return cc->Sum(*this); }
-        else{ throw 0; }
-    }
+    else { return b.Sum(*this); }
 }
 Set& FiniteSet::Intersect(const Set& b) const {
-    throw 0;
+    int n = (b.Size >= 0 && b.Size < this->Size) ? b.Size : this->Size;
+    const Element** nlist = new const Element*[n];
+
+    int count = 0;
+    for(int i = 0; i < this->Size; i++){
+        if(b.Contains(*this->list[i])) {nlist[count++] = this->list[i];}
+    }
+
+    return *new FiniteSet(nlist, count);
 }
 Set& FiniteSet::Substract(const Set& b) const {
-    throw 0;
+    int n = this->Size;
+    const Element** nlist = new const Element*[n];
+
+    int count = 0;
+    for(int i = 0; i < this->Size; i++){
+        if(!b.Contains(*this->list[i])) {nlist[count++] = this->list[i];}
+    }
+
+    return *new FiniteSet(nlist, count);
 }
 
 

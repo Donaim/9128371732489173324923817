@@ -18,7 +18,11 @@ int main(void){
     // testFiniteContains();
     // testFiniteIncludes();
     // testPrinting();
-    testFiniteSum();
+    // testFiniteSum();
+    // testFiniteIntersect();
+    // testFiniteInfiniteIntersect();
+    // testFiniteInfiniteSubstract();
+    testFiniteIntersect_InfiniteSumInfinite();    
 
     return 0;
 }

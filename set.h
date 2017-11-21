@@ -24,12 +24,7 @@ class Set : public virtual Element, public virtual IComparable<Set> {
 };
 
 class FunctionalSet : public virtual Set{
-protected:
-    const RulePtr func;
 public:
-    FunctionalSet(const RulePtr &f);
-    bool Contains(const Element &e) const override ;
-
     Set& Sum(const Set& b) const override ;
     Set& Intersect(const Set& b) const override ;
     Set& Substract(const Set& b) const override ;
@@ -37,9 +32,10 @@ public:
 
 class SubSet : public FunctionalSet{
 protected:
+    const RulePtr func;
     const Set &parent;
 public:
-    SubSet(const Set &p, const RulePtr &f);// : parent(p), func(f) {}
+    SubSet(const Set &p, const RulePtr f);// : parent(p), func(f) {}
     bool Contains(const Element& e) const override ;//{return parent.Contains(e) && func(e);}
 };
 
@@ -51,9 +47,19 @@ public: virtual bool Exists(RulePtr& r) const = 0;
 };
 
 class Uniwersum : public Set, public IForAll, public IExists{
+public:
     bool Contains(const Element& e) const override {return true;}
     bool Includes(const Set& s) const override {return true;}
     
     bool ForAll(RulePtr& r) const override {return false;}
     bool Exists(RulePtr& r) const override {return true;}
+
+    Set& Sum(const Set& b) const override {return (Set&)*this;}
+    Set& Intersect(const Set& b) const override {return (Set&)b;}
+    Set& Substract(const Set& b) const override {
+        const RulePtr rule { [this, &b](const Element& e){ return !b.Contains(e); } };
+        return *(new SubSet(*this, rule));
+    }
 };
+
+const Uniwersum* const Uniwerse = new const Uniwersum{};
