@@ -57,17 +57,26 @@ Set& FiniteSet::Substract(const Set& b) const {
     return *new FiniteSet(nlist, count);
 }
 
+bool PRINT_FIRST_LAYER = false;
 
 void FiniteSet::Print(ostream& os) const {
+    if(Size <= 0) { os << '{' << '}'; return; }
+    
     os << '{' << ' ';
     for(int i = 0; i < Size; i++) {
         auto ip = ToType<const IPrintable*>(list[i]);
         auto set = ToType<const Set*>(list[i]);
         
-        if(ip) {cout << *ip;}
-        else if(set) {cout << "{?}";} //Not printable set
-        // else { IPrintable::Default(list[i]); }
-        else {cout << '?';}
+        if(PRINT_FIRST_LAYER){
+            if(set) {cout << "{...}"; }
+            else if(ip) {cout << *ip; }
+            else {cout << '?'; }
+        }
+        else{
+            if(ip) {cout << *ip;}
+            else if(set) {cout << "{?}";} //Not printable set
+            else {cout << '?';}
+        }
         
         cout << ' ';
     }

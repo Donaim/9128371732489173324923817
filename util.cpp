@@ -62,6 +62,9 @@ public:
 };
 
 
+#define REPORT_CREATED false
+#define EXPLICIT_ELEMENT_CREATION true
+
 class StaticElement : public virtual Element, public virtual IComparable<StaticElement>, public IPrintable {
     const uint8_t* const obj;
     const int size;

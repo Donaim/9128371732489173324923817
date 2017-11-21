@@ -7,9 +7,6 @@
 
 using namespace std;
 
-#define REPORT_CREATED true
-#define EXPLICIT_ELEMENT_CREATION true
-
 class Element {
 public:
     virtual bool operator ==(const Element& other) const = 0;

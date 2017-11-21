@@ -4,10 +4,10 @@
 #include "util.cpp"
 
 class Set : public virtual Element, public virtual IComparable<Set> {
-    protected:
+protected:
     Set(const int size); //: Size(size) {}
     Set(); // : Size(-1) {} //infinite by default
-    public:
+public:
     const int Size;
     bool EmptyQ() const ;
     bool virtual Contains(const Element& e) const = 0;

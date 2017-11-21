@@ -22,7 +22,8 @@ int main(void){
     // testFiniteIntersect();
     // testFiniteInfiniteIntersect();
     // testFiniteInfiniteSubstract();
-    testFiniteIntersect_InfiniteSumInfinite();    
+    // testFiniteIntersect_InfiniteSumInfinite();    
+    testGenerator();
 
     return 0;
 }

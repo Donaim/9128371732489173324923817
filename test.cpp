@@ -6,6 +6,7 @@
 #include "set.cpp"
 #include "naturals.cpp"
 #include "initializator.cpp"
+#include "generator.cpp"
 
 using namespace std;
 
@@ -151,19 +152,25 @@ public:
     bool Contains(const Element& e) const override { return IsTypeOf<AELEMENT>(&e); }
 };
 void testFiniteIntersect_InfiniteSumInfinite(){
+    const Naturals set2{};
+    const ACLASS set3{};
+    const Set& sum = set2.Sum(set3);
+    
     Initial i1;
     i1.AddCustom(3);
     i1.AddCustom(6);
     i1.Add(Natural{3});
     i1.Add(Natural{4});
     i1.Add(AELEMENT{'a'});
+    i1.Add(sum);
     const FiniteSet set1{i1};
-
-    const Naturals set2{};
-    const ACLASS set3{};
-    const Set& sum = set2.Sum(set3);
 
     cout << set1 << endl;
     // cout << set2 << endl;
     cout << (FiniteSet&)(set1.Intersect(sum)) << endl;
+}
+
+void testGenerator(){
+    auto set = Naturals{}.Generate(GenParams{1, 1000, 1000, 2000, 100});
+    cout << set << endl;
 }
