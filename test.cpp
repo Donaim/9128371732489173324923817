@@ -124,6 +124,26 @@ void testFiniteInfiniteIntersect(){
     // cout << set2 << endl;
     cout << (FiniteSet&)(set1.Intersect(set2)) << endl;
 }
+void testGeneratorFiniteInfiniteIntersect(){
+    FiniteSet set = Naturals{}.Generate(GenParams{1, 500, 500, 1000, 100});
+    SubSet sub{set, RulePtr{[&set](const Element& e)
+    {
+        auto x = ToType<const Natural*>(&e);
+        return set.ForAll(RulePtr { [&set, x](const Element& aa) 
+        {
+            auto a = ToType<const Natural*>(&aa);
+            return set.ForAll(RulePtr { [&set, x, a](const Element& bb) 
+            {
+                auto b = ToType<const Natural*>(&bb);
+                if(a->X * b->X == x->X) { return a->X == 1 || b->X == 1; }
+                else { return true; }
+            }});
+        }});
+    }}};
+    
+    // cout << (FiniteSet&)sub << endl;
+    cout << (FiniteSet&)set.Intersect(sub) << endl;
+}
 
 void testFiniteInfiniteSubstract(){
     Initial i1;
