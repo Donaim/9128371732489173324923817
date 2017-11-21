@@ -28,6 +28,19 @@ struct RulePtr
 };
 
 
+class IPrintable {
+public:
+    friend ostream& operator<<(ostream& os, const IPrintable& o);
+    virtual void Print(ostream& os) const = 0;
+
+    template <class T>
+    static void Default(T x) { cout << typeid(x).name(); }
+};
+ostream& operator << (ostream& os, const IPrintable& o){
+    o.Print(os);
+    return os;
+}
+
 template <class T>
 class IComparable : public virtual Element {
 public:
@@ -49,7 +62,7 @@ public:
 };
 
 
-class StaticElement : public virtual Element, public virtual IComparable<StaticElement> {
+class StaticElement : public virtual Element, public virtual IComparable<StaticElement>, public IPrintable {
     const uint8_t* const obj;
     const int size;
     const size_t id;
@@ -68,19 +81,17 @@ class StaticElement : public virtual Element, public virtual IComparable<StaticE
     explicit StaticElement(T x) : obj(cpy(x)), size(sizeof(x)), id(type_index(typeid(x)).hash_code()) 
     {
     #if REPORT_CREATED 
-            reportCreated();
+        reportCreated();
     #endif
     }
 
     void reportCreated() const {
-        cout << "Created StaticElement: ";
-        print();
-        cout << endl;
+        cout << "Created StaticElement: " << *this << ';' << endl;
     }
-    void print() const {
-        cout << '[' << ' ';
-        for(int i = 0; i < size; i++){ cout << (int)obj[i] << ' ' ;}
-        cout << ']';
+    void Print(ostream& os) const override {
+        os << '[' << ' ';
+        for(int i = 0; i < size; i++){ os << (int)obj[i] << ' ' ;}
+        os << ']';
     }
 
     bool equal(const StaticElement& a, const StaticElement& b) const override {

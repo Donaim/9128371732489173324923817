@@ -45,3 +45,44 @@ void testFiniteIncludes(){
     cout << (set2.Includes(set1)) << endl;
     cout << (set1 == set2) << endl; //double includes
 }
+
+void testPrinting(){
+    Initial i1;
+    i1.AddCustom(3);
+    i1.AddCustom(6);
+    i1.Add(Natural{3});
+    i1.Add(Natural{4});
+    i1.AddCustom('a');
+    const FiniteSet set1{i1};
+
+    Initial i2;
+    i2.AddCustom(3);
+    i2.Add(Natural{4});
+    // i2.AddCustom(4);
+    i2.Add(set1);
+    const FiniteSet set2{i2};
+    
+    cout << set2 << endl;
+}
+
+void testFiniteSum(){
+     Initial i1;
+    // i1.AddCustom(3);
+    // i1.AddCustom(6);
+    i1.Add(Natural{3});
+    i1.Add(Natural{4});
+    // i1.AddCustom('a');
+    const FiniteSet set1{i1};
+
+    Initial i2;
+    // i2.AddCustom(3);
+    i2.Add(Natural{4});
+    i2.Add(Natural{7});
+    // i2.AddCustom(4);
+    i2.Add(set1);
+    const FiniteSet set2{i2};
+    
+    cout << set1 << endl;
+    cout << set2 << endl;
+    cout << (FiniteSet&)(set1.Sum(set2)) << endl;
+}

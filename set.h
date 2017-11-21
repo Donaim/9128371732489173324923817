@@ -2,7 +2,6 @@
 
 #include "Element.h"
 #include "util.cpp"
-#include "initializator.cpp"
 
 class Set : public virtual Element, public virtual IComparable<Set> {
     protected:
@@ -16,17 +15,24 @@ class Set : public virtual Element, public virtual IComparable<Set> {
     bool virtual Includes(const Set& s) const ;
     bool equal(const Set& a, const Set& b) const override;
 
-    //bool operator ==(const Set& o) const ;
     bool operator >=(const Set& o) const ;
     bool operator <=(const Set& o) const ;
+
+    virtual Set& Sum(const Set& b) const = 0;
+    virtual Set& Intersect(const Set& b) const = 0;
+    virtual Set& Substract(const Set& b) const = 0;
 };
 
-class FunctionalSet : public Set{
+class FunctionalSet : public virtual Set{
 protected:
     const RulePtr func;
 public:
     FunctionalSet(const RulePtr &f);
     bool Contains(const Element &e) const override ;
+
+    Set& Sum(const Set& b) const override ;
+    Set& Intersect(const Set& b) const override ;
+    Set& Substract(const Set& b) const override ;
 };
 
 class SubSet : public FunctionalSet{
@@ -44,15 +50,10 @@ class IExists{
 public: virtual bool Exists(RulePtr& r) const = 0;
 };
 
-class FiniteSet : public Set, public IForAll, public IExists {
-protected:
-    const Element** const list;
-public:
-    FiniteSet(const Element** es, int size);
-    FiniteSet(Initial& v);
-
-    bool Contains(const Element& e) const override;
-
-    bool ForAll(RulePtr& r) const override ;
-    bool Exists(RulePtr& r) const override ;
+class Uniwersum : public Set, public IForAll, public IExists{
+    bool Contains(const Element& e) const override {return true;}
+    bool Includes(const Set& s) const override {return true;}
+    
+    bool ForAll(RulePtr& r) const override {return false;}
+    bool Exists(RulePtr& r) const override {return true;}
 };
