@@ -213,7 +213,7 @@ void testQuantifikatorExample(){
     cout << (FiniteSet&)set.Intersect(sub) << endl;
 }
 void testPrimeQuantifikatorExample(){
-    FiniteSet set = Naturals{}.Generate(GenParams{1, 500, 500, 1000, 100});
+    FiniteSet set = Naturals{}.Generate(GenParams{1, 3000, 500, 1000, 0});
     SubSet sub{set, RulePtr{[&set](const Element& e)
     {
         auto x = ToType<const Natural*>(&e);

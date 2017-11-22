@@ -29,7 +29,7 @@ public:
     virtual FiniteSet& Generate(const GenParams& p) const {
         Initial* zz = new Initial{};
 
-        // cout << p << endl;
+        cout << p << endl;
         
         for(int i = p.SeqStart, to = p.SeqStart + p.SeqCount; i < to; i++){
             zz->Add(GenElement(i, 0));
@@ -38,7 +38,7 @@ public:
             zz->Add(GenElement(NextRand(p.RandStart, p.RandEnd), 1));
         }
 
-        cout << "Inited size = " << zz->size() << endl;
+        //cout << "Inited size = " << zz->size() << endl;
 
         return *new FiniteSet(*zz);
     }
