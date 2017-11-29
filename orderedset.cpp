@@ -18,3 +18,15 @@ bool FiniteOrderedSet::Includes(const Set& s) const {
 }
 
 const Element& FiniteOrderedSet::Get(int index) const { return *FiniteSet::list[index]; } 
+
+void FiniteOrderedSet::Print(ostream& os) const {
+    if(Size <= 0) { os << '(' << ')'; return; }
+    
+    os << '(';
+    IPrintable::printElement(os, list[0]);
+    for(int i = 1; i < Size; i++) {
+        os << ',';
+        IPrintable::printElement(os, list[i]);
+    }
+    os << ')';
+}

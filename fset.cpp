@@ -1,6 +1,7 @@
 #pragma once
 
 #include "fset.h"
+#include "orderedset.h"
 
 FiniteSet::FiniteSet(const Element** es, int size) : Set(size), list(es) {}
 FiniteSet::FiniteSet(Initial& v) : Set(v.size()), list(v.Get()) {}
@@ -57,27 +58,32 @@ Set& FiniteSet::Substract(const Set& b) const {
     return *new FiniteSet(nlist, count);
 }
 
-#define PRINT_FIRST_LAYER false
+const FiniteSet& FiniteSet::KartesianProduct(const FiniteSet& o) const {
+    const int n = o.Size * this->Size;
+    const Element **els = new const Element*[n];
+
+    int z = 0;
+    for(int i = 0, to = this->Size; i < to; i++)
+    {
+        for(int k = 0; k < o.Size; k++)
+        {
+            const Element **pair = new const Element*[2];
+            pair[0] = this->list[i];
+            pair[1] = o.list[k];
+            els[z++] = new FiniteOrderedSet(pair, 2);
+        }
+    }
+
+    return *new FiniteSet(els, n);
+}
 
 void FiniteSet::Print(ostream& os) const {
     if(Size <= 0) { os << '{' << '}'; return; }
     
     os << '{' << ' ';
     for(int i = 0; i < Size; i++) {
-        auto ip = ToType<const IPrintable*>(list[i]);
-        auto set = ToType<const Set*>(list[i]);
-        
-#if PRINT_FIRST_LAYER
-        if(set) {cout << "{...}"; }
-        else if(ip) {cout << *ip; }
-        else {cout << '?'; }
-#else
-        if(ip) {cout << *ip;}
-        else if(set) {cout << "{?}";} //Not printable set
-        else {cout << '?';}
-#endif
-        
-        cout << ' ';
+        IPrintable::printElement(os, list[i]);
+        os << ' ';
     }
     os << '}';
 }

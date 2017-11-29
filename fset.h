@@ -4,7 +4,7 @@
 #include "initializator.cpp"
 #include <iostream>
 
-class FiniteSet : public Set, public virtual IForAll, public virtual IExists, public virtual IPrintable {
+class FiniteSet : public Set, public IForAll, public IExists, public virtual IPrintable {
 protected:
     const Element** const list;
 public:
@@ -19,6 +19,8 @@ public:
     Set& Sum(const Set& b) const override ;
     Set& Intersect(const Set& b) const override ;
     Set& Substract(const Set& b) const override ;
+
+    const FiniteSet& KartesianProduct(const FiniteSet& o) const ;
 
     void Print(ostream& os) const override ;
 };

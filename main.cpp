@@ -29,7 +29,8 @@ int main(void){ cout << "START" << endl;
     // testPrimeQuantifikatorExample();
     // testGeneratorFiniteInfiniteIntersect();
     // testOddExample();
-    testFiniteOrderedSet();
+    // testFiniteOrderedSet();
+    testKartesianProduct();
 
     return 0;
 }

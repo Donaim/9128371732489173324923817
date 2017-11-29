@@ -8,6 +8,7 @@
 #include "initializator.cpp"
 #include "generator.cpp"
 #include "orderedset.cpp"
+// #include "kartesian.cpp"
 
 using namespace std;
 
@@ -251,5 +252,12 @@ void testOddExample(){
 }
 
 void testFiniteOrderedSet(){
-    FiniteOrderedSet s{};
+    // FiniteOrderedSet s{};
+}
+
+void testKartesianProduct(){
+    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 5, 500, 1000, 0});
+    const FiniteSet set2 = Naturals{}.Generate(GenParams{1, 5, 500, 1000, 0});
+    
+    cout << set1.KartesianProduct(set2) << endl; 
 }

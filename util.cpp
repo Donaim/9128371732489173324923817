@@ -4,6 +4,8 @@
 #include <utility>
 #include "Element.h"
 
+class Set;
+
 //usage : IsTypeOf<TargetType>(&Element)
 template<class T, class z>
 bool IsTypeOf(const z ptr){
@@ -28,6 +30,8 @@ struct RulePtr
 };
 
 
+#define PRINT_FIRST_LAYER false
+
 class IPrintable {
 public:
     friend ostream& operator<<(ostream& os, const IPrintable& o);
@@ -35,6 +39,21 @@ public:
 
     template <class T>
     static void Default(T x) { cout << typeid(x).name(); }
+
+    static void printElement(ostream& os, const Element* e){
+        auto ip = ToType<const IPrintable*>(e);
+        auto set = ToType<const Set*>(e);
+
+#if PRINT_FIRST_LAYER
+        if(set) {os << "{...}"; }
+        else if(ip) {os << *ip; }
+        else {os << '?'; }
+#else
+        if(ip) {os << *ip;}
+        else if(set) {os << "{?}";} //Not printable set
+        else {os << '?';}
+#endif
+    }
 };
 ostream& operator << (ostream& os, const IPrintable& o){
     o.Print(os);
