@@ -7,6 +7,7 @@
 #include "naturals.cpp"
 #include "initializator.cpp"
 #include "generator.cpp"
+#include "orderedset.h"
 
 using namespace std;
 
@@ -213,7 +214,7 @@ void testQuantifikatorExample(){
     cout << (FiniteSet&)set.Intersect(sub) << endl;
 }
 void testPrimeQuantifikatorExample(){
-    FiniteSet set = Naturals{}.Generate(GenParams{1, 3000, 500, 1000, 0});
+    FiniteSet set = Naturals{}.Generate(GenParams{1, 500, 500, 1000, 0});
     SubSet sub{set, RulePtr{[&set](const Element& e)
     {
         auto x = ToType<const Natural*>(&e);
@@ -226,6 +227,22 @@ void testPrimeQuantifikatorExample(){
                 if(a->X * b->X == x->X) { return a->X == 1 || b->X == 1; }
                 else { return true; }
             }});
+        }});
+    }}};
+    
+    // cout << (FiniteSet&)sub << endl;
+    cout << (FiniteSet&)set.Intersect(sub) << endl;
+}
+
+void testOddExample(){
+    FiniteSet set = Naturals{}.Generate(GenParams{1, 500, 500, 1000, 0});
+    SubSet sub{set, RulePtr{[&set](const Element& e)
+    {
+        auto x = ToType<const Natural*>(&e);
+        return set.Exists(RulePtr { [&set, x](const Element& aa) 
+        {
+            auto a = ToType<const Natural*>(&aa);
+            return 2 * a->X == x->X;
         }});
     }}};
     

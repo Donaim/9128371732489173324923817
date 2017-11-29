@@ -8,9 +8,9 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                // Ask msbuild to generate full paths for file names.
-                " main.cpp",
-                " ; ./a.out"
+                "main.cpp",
+                ";",
+                "./a.out"
             ],
             "group": "build",
             "presentation": {

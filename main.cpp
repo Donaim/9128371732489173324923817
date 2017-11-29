@@ -26,8 +26,9 @@ int main(void){ cout << "START" << endl;
     // testGenerator();
     // testDivisionExample();
     // testQuantifikatorExample();
-    testPrimeQuantifikatorExample();
+    // testPrimeQuantifikatorExample();
     // testGeneratorFiniteInfiniteIntersect();
+    testOddExample();
 
 
     return 0;
