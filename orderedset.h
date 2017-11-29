@@ -13,7 +13,7 @@ class FiniteOrderedSet : public virtual FiniteSet, public IOrdered {
 protected:
 public:
     FiniteOrderedSet() : FiniteSet(nullptr, 0) {}
-    bool equal(const Set& a, const Set& b) const override;
-    bool equal(const FiniteOrderedSet& a, const FiniteOrderedSet& b) const;
     const Element& Get(int index) const override; 
+
+    bool virtual Includes(const Set& s) const override;
 };
