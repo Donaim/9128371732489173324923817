@@ -28,8 +28,8 @@ int main(void){ cout << "START" << endl;
     // testQuantifikatorExample();
     // testPrimeQuantifikatorExample();
     // testGeneratorFiniteInfiniteIntersect();
-    testOddExample();
-
+    // testOddExample();
+    testFiniteOrderedSet();
 
     return 0;
 }

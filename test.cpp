@@ -7,7 +7,7 @@
 #include "naturals.cpp"
 #include "initializator.cpp"
 #include "generator.cpp"
-#include "orderedset.h"
+#include "orderedset.cpp"
 
 using namespace std;
 
@@ -248,4 +248,8 @@ void testOddExample(){
     
     // cout << (FiniteSet&)sub << endl;
     cout << (FiniteSet&)set.Intersect(sub) << endl;
+}
+
+void testFiniteOrderedSet(){
+    FiniteOrderedSet s{};
 }

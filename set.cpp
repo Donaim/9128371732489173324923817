@@ -20,7 +20,7 @@ bool Set::Includes(const Set& s) const {
     else 
     {
     #if INCLUDE_ERRORS
-        throw "Set does not support ForAll quantifikator :(";
+        throw "Set does not support ForAll quantifier :(";
     #endif
         return false;
     }
