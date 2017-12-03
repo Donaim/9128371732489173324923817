@@ -163,6 +163,7 @@ public:
 };
 class ACLASS : public FunctionalSet {
 public:
+    ACLASS() : ISizeable(-1) {}
     bool Contains(const Element& e) const override { return IsTypeOf<AELEMENT>(&e); }
 };
 void testFiniteIntersect_InfiniteSumInfinite(){
@@ -211,7 +212,7 @@ void testQuantifikatorExample(){
     }}};
     
     // cout << (FiniteSet&)sub << endl;
-    cout << set.Size << endl;
+    cout << (set.Count()) << endl;
     cout << (FiniteSet&)set.Intersect(sub) << endl;
 }
 void testPrimeQuantifikatorExample(){
@@ -256,8 +257,12 @@ void testFiniteOrderedSet(){
 }
 
 void testKartesianProduct(){
+    cout << "testKartesianProduct" << endl;
+
     const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 3, 500, 1000, 0});
     const FiniteSet set2 = Naturals{}.Generate(GenParams{4, 3, 500, 1000, 0});
+    // cout << "set1.Count() = " << set1.Count() << endl;
+    // cout << "set2.Count() = " << set2.Count() << endl;
     
     cout << set1.KartesianProduct(set2) << endl; 
     cout << (set1.KartesianProduct(set2) == set2.KartesianProduct(set1)) << endl;

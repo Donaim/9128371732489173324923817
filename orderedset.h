@@ -6,16 +6,14 @@
 
 class FiniteSet;
 
-class IOrdered {
+class IOrdered : public virtual ISizeable {
 public:
     const virtual Element& Get(int index) const = 0; 
 };
 
-class FiniteOrderedSet : public virtual FiniteSet, public IOrdered {
-    FiniteOrderedSet() : FiniteSet(nullptr, 0) {}
-protected:
+class FiniteOrderedSet : public virtual IOrdered, public virtual FiniteSet {
 public:
-    FiniteOrderedSet(const Element **els, int size) : FiniteSet(els, size) {}
+    FiniteOrderedSet(const Element **els, int size) : FiniteSet(els, size), ISizeable(size) {}
     const Element& Get(int index) const override; 
 
     bool virtual Includes(const Set& s) const override;

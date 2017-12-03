@@ -4,6 +4,8 @@
         "typeinfo": "cpp",
         "utility": "cpp",
         "iostream": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "array": "cpp",
+        "initializer_list": "cpp"
     }
 }

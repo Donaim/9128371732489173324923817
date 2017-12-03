@@ -4,13 +4,10 @@
 #include "setSize.cpp"
 #include "util.cpp"
 
-class Set : public virtual Element, public virtual IComparable<Set> {
+class Set : public virtual Element, public virtual ISizeable, public virtual IComparable<Set> {
 protected:
-    Set(const int size); //: Size(size) {}
-    Set(); // : Size(-1) {} //infinite by default
+    Set() : ISizeable(-1, true, false, -1) {}
 public:
-    const int Size;
-    bool EmptyQ() const ;
     bool virtual Contains(const Element& e) const = 0;
 
     bool virtual Includes(const Set& s) const ;
@@ -25,6 +22,8 @@ public:
 };
 
 class FunctionalSet : public virtual Set{
+protected:
+    FunctionalSet() : ISizeable(-1) {}
 public:
     Set& Sum(const Set& b) const override ;
     Set& Intersect(const Set& b) const override ;

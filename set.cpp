@@ -7,9 +7,6 @@ using namespace std;
 
 #define INCLUDE_ERRORS true
 
-Set::Set(const int size) : Size(size) {}
-Set::Set() : Size(-1) {} //infinite by default
-bool Set::EmptyQ() const {return Size == 0;}
 bool Set::Includes(const Set& s) const {
     const IForAll* o = ToType<const IForAll*>(&s);
     if(o) 
@@ -47,6 +44,6 @@ Set& FunctionalSet::Substract(const Set& b) const {
     return *(new SubSet(*this, rule));
 }
 
-SubSet::SubSet(const Set &p, const RulePtr f) : parent(p), func(f) {}
+SubSet::SubSet(const Set &p, const RulePtr f) : parent(p), func(f), ISizeable(-1) {}
 bool SubSet::Contains(const Element& e) const {return parent.Contains(e) && func.F(e);}
 

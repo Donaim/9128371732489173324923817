@@ -20,6 +20,7 @@ public:
 
 class Naturals : public FunctionalSet, public IGeneratable {
 public:
+    Naturals() : ISizeable(-1, false, true, 2) {}
     bool Contains(const Element& e) const override { return IsTypeOf<Natural>(&e); }
 protected:
     Element& GenElement(int x, int mode) const override { return *new Natural{x}; }
