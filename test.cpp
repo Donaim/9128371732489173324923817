@@ -256,8 +256,9 @@ void testFiniteOrderedSet(){
 }
 
 void testKartesianProduct(){
-    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 5, 500, 1000, 0});
-    const FiniteSet set2 = Naturals{}.Generate(GenParams{1, 5, 500, 1000, 0});
+    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 3, 500, 1000, 0});
+    const FiniteSet set2 = Naturals{}.Generate(GenParams{4, 3, 500, 1000, 0});
     
     cout << set1.KartesianProduct(set2) << endl; 
+    cout << (set1.KartesianProduct(set2) == set2.KartesianProduct(set1)) << endl;
 }

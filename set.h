@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Element.h"
+#include "setSize.cpp"
 #include "util.cpp"
 
 class Set : public virtual Element, public virtual IComparable<Set> {

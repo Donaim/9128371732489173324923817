@@ -22,3 +22,12 @@ public:
     
     void Print(ostream& os) const override ;
 };
+
+class OrderedPairsFunctionalSet : public FunctionalSet {
+protected:
+    const int pairLen;
+    const Set** list;
+public:
+    OrderedPairsFunctionalSet(const Set** list, const int size); // : list(list), pairLen(size) {}
+    bool Contains(const Element& e) const override ;
+};
