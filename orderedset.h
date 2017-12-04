@@ -2,9 +2,9 @@
 
 #include "Element.h"
 #include "set.h"
-// #include "fset.h"
+#include "fset.h"
 
-class FiniteSet;
+// class FiniteSet;
 
 class IOrdered : public virtual ISizeable {
 public:

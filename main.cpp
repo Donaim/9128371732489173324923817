@@ -26,11 +26,11 @@ int main(void){ cout << "START" << endl;
     // testGenerator();
     // testDivisionExample();
     // testQuantifikatorExample();
-    testPrimeQuantifikatorExample();
+    // testPrimeQuantifikatorExample();
     // testGeneratorFiniteInfiniteIntersect();
     // testOddExample();
     // testFiniteOrderedSet();
-    testKartesianProduct();
+    // testKartesianProduct();
 
     return 0;
 }

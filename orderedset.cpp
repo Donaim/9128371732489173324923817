@@ -1,13 +1,13 @@
 #pragma once
 
+#include "fset.h"
 #include "orderedset.h"
 
 bool FiniteOrderedSet::Includes(const Set& s) const {
-    if(s.Count() > this->Count()) {return false;}
-    
     const IOrdered* o = ToType<const IOrdered*>(&s);
     if(o)
     {
+        if(o->Count() > this->Count()) {return false;}
         for(int i = 0, to = s.Count(); i < to; i++){
             if(!(o->Get(i) == *(this->list[i]))) {return false;}
         }
@@ -36,17 +36,16 @@ void FiniteOrderedSet::Print(ostream& os) const {
 
 OrderedPairsFunctionalSet::OrderedPairsFunctionalSet(const Set** list, const int size) : list(list), pairLen(size), ISizeable(size) {}
 bool OrderedPairsFunctionalSet::Contains(const Element& e) const {
-    throw 0;
-    // const IOrdered* o = ToType<const IOrdered*>(&e);
+    const IOrdered* o = ToType<const IOrdered*>(&e);
 
+    if(o)
+    {
+        if(o->Count() != this->pairLen) {return false;}
+        for(int i = 0, to = o->Count(); i < to; i++){
+            if(!this->list[i]->Contains(o->Get(i))) {return false;}
+        }
 
-    // if(o)
-    // {
-    //     for(int i = 0, to = s.Size; i < to; i++){
-    //         if(!(o->Get(i) == *(this->list[i]))) {return false;}
-    //     }
-
-    //     return true;
-    // }
-    // else { return false; }
+        return true;
+    }
+    else { return false; }
 } 
