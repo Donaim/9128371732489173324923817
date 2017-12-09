@@ -30,7 +30,7 @@ public:
     Set& Substract(const Set& b) const override ;
 };
 
-class SubSet : public FunctionalSet{
+class SubSet : public virtual FunctionalSet{
 protected:
     const RulePtr func;
     const Set &parent;

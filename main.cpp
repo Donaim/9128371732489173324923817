@@ -5,11 +5,12 @@
 
 #include "set.cpp"
 #include "fset.cpp"
+#include "orderedset.cpp"
 
-#include "naturals.cpp"
-#include "initializator.cpp"
+// #include "naturals.cpp"
+// #include "initializator.cpp"
 
-#include "test.cpp"
+// #include "test.cpp"
 
 using namespace std;
 

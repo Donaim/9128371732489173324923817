@@ -4,7 +4,7 @@
 #include "initializator.cpp"
 #include <iostream>
 
-class FiniteSet : public Set, public IForAll, public IExists, public virtual IPrintable {
+class FiniteSet : public virtual Set, public IForAll, public IExists, public virtual IPrintable {
 protected:
     const Element** const list;
 public:
