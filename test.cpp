@@ -6,6 +6,7 @@
 #include "set.cpp"
 #include "fset.cpp"
 #include "orderedset.cpp"
+#include "kartesianProduct.cpp"
 #include "relation.cpp"
 
 #include "initializator.cpp"

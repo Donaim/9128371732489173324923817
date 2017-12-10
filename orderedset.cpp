@@ -32,20 +32,3 @@ void FiniteOrderedSet::Print(ostream& os) const {
     }
     os << ')';
 }
-
-
-OrderedPairsFunctionalSet::OrderedPairsFunctionalSet(const Set** list, const int size) : list(list), pairLen(size), ISizeable(size) {}
-bool OrderedPairsFunctionalSet::Contains(const Element& e) const {
-    const IOrderedSet* o = ToType<const IOrderedSet*>(&e);
-
-    if(o)
-    {
-        if(o->Count() != this->pairLen) {return false;}
-        for(int i = 0, to = o->Count(); i < to; i++){
-            if(!this->list[i]->Contains(o->Get(i))) {return false;}
-        }
-
-        return true;
-    }
-    else { return false; }
-} 
