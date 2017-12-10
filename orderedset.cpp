@@ -4,7 +4,7 @@
 #include "orderedset.h"
 
 bool FiniteOrderedSet::Includes(const Set& s) const {
-    const IOrdered* o = ToType<const IOrdered*>(&s);
+    const IOrderedSet* o = ToType<const IOrderedSet*>(&s);
     if(o)
     {
         if(o->Count() > this->Count()) {return false;}
@@ -36,7 +36,7 @@ void FiniteOrderedSet::Print(ostream& os) const {
 
 OrderedPairsFunctionalSet::OrderedPairsFunctionalSet(const Set** list, const int size) : list(list), pairLen(size), ISizeable(size) {}
 bool OrderedPairsFunctionalSet::Contains(const Element& e) const {
-    const IOrdered* o = ToType<const IOrdered*>(&e);
+    const IOrderedSet* o = ToType<const IOrderedSet*>(&e);
 
     if(o)
     {
