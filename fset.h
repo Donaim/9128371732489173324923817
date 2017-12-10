@@ -5,7 +5,7 @@
 #include <iostream>
 
 class FiniteSet : public virtual Set, public IForAll, public IExists, public virtual IPrintable {
-protected:
+public:
     const Element** const list;
 public:
     FiniteSet(const Element** es, int size);
@@ -20,7 +20,7 @@ public:
     Set& Intersect(const Set& b) const override ;
     Set& Substract(const Set& b) const override ;
 
-    const FiniteSet& KartesianProduct(const FiniteSet& o) const ;
+    // const FiniteSet& KartesianProduct(const FiniteSet& o) const ;
 
     void Print(ostream& os) const override ;
 };

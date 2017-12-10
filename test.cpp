@@ -251,8 +251,6 @@ void testOddExample(){
         }});
     }}};
     
-
-    // cout << (FiniteSet&)sub << endl;
     cout << ToPtrType<FiniteSet>(&set.Intersect(sub)) << endl;
 }
 
@@ -268,8 +266,11 @@ void testKartesianProduct(){
     // cout << "set1.Count() = " << set1.Count() << endl;
     // cout << "set2.Count() = " << set2.Count() << endl;
     
-    cout << set1.KartesianProduct(set2) << endl; 
-    cout << (set1.KartesianProduct(set2) == set2.KartesianProduct(set1)) << endl;
+    auto k1 = *new FiniteKartesianPSet(set1, set2);
+    auto k2 = *new FiniteKartesianPSet(set2, set1);
+
+    cout << k1 << endl;
+    cout << (k1 == k2) << endl;
 }
 
 void RelationTest(){

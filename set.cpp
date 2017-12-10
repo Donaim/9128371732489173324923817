@@ -3,8 +3,6 @@
 #include "set.h"
 #include "fset.h"
 
-using namespace std;
-
 #define INCLUDE_ERRORS true
 
 bool Set::Includes(const Set& s) const {

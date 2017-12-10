@@ -1,8 +1,9 @@
 #pragma once
 
 #include <iostream>
+using namespace std;
 
-class ISizeable {
+class Cardinality {
     const bool undefined;
     int elementCount;
     bool infinite;
@@ -17,12 +18,11 @@ public:
     bool InfiniteQ() const {return infinite;}
     int Power() const {return sizepower;}
     bool EmptyQ() const {return elementCount == 0;}
-    const ISizeable& Size() const { return *this; }
 
 public:
-    ISizeable(const int size) : ISizeable(size, false, false, 1) {}
-    ISizeable() : ISizeable(-1, false, false, -1) {}
-    ISizeable(int size, bool undefined, bool infinite, int sizepow)
+    Cardinality(const int size) : Cardinality(size, false, false, 1) {}
+    Cardinality() : Cardinality(-1, false, false, -1) {}
+    Cardinality(int size, bool undefined, bool infinite, int sizepow)
     : elementCount(size), undefined(undefined), infinite(infinite), sizepower(sizepow)
     {
         if(undefined) {elementCount = -1;}
@@ -33,9 +33,9 @@ public:
         else if(elementCount == 0) {sizepower = 0;}
     }
 
-    // friend ostream& operator <<(ostream& os, const SetSize& me);
+    friend ostream& operator <<(ostream& os, const Cardinality& me);
 
-    bool operator < (const ISizeable& o) const {
+    bool operator < (const Cardinality& o) const {
         if(sizepower == o.sizepower) {
             return elementCount < o.elementCount;
         }
@@ -44,7 +44,7 @@ public:
         
         return false;
     }
-    bool operator > (const ISizeable& o) const {
+    bool operator > (const Cardinality& o) const {
         if(sizepower == o.sizepower) {
             return elementCount > o.elementCount;
         }
@@ -53,19 +53,31 @@ public:
         
         return false;
     }
+    bool operator == (const Cardinality& o) const {
+        return (sizepower == o.sizepower) && (elementCount == o.elementCount) && (!(undefined || o.undefined));
+    }
+    bool operator != (const Cardinality& o) const { return !( *this == o ); }
 };
+ostream& operator << (ostream& os, const Cardinality& me) {
+    if(me.elementCount >= 0){
+        os << me.elementCount;
+    }
+    else if(me.undefined){
+        os << "NA";
+    }
+    else if(me.infinite){
+        os << "I:" << me.sizepower;
+    }
+    else {throw "WTF???";}
 
-// ostream& operator << (ostream& os, const SetSize& me) {
-//     if(me.elementCount >= 0){
-//         os << me.elementCount;
-//     }
-//     else if(me.undefined){
-//         os << "NA";
-//     }
-//     else if(me.infinite){
-//         os << "I:" << me.sizepower;
-//     }
-//     else {throw "WTF???";}
+    return os;
+}
 
-//     return os;
-// }
+class ISizeable {
+protected:
+    ISizeable(Cardinality size) : Size(size) {}
+    ISizeable(int size, bool undefined, bool infinite, int sizepow) : Size(size, undefined, infinite, sizepow) {} 
+    ISizeable() : ISizeable(-1, true, false, -1) {}
+public:
+    const Cardinality Size;
+};

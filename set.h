@@ -6,7 +6,6 @@
 
 class Set : public virtual Element, public virtual ISizeable, public virtual IComparable<Set> {
 protected:
-    Set() : ISizeable(-1, true, false, -1) {}
 public:
     bool virtual Contains(const Element& e) const = 0;
 

@@ -16,7 +16,7 @@ int main(void){ std::cout << "START" << std::endl;
     // testGeneratorFiniteInfiniteIntersect();
     // testOddExample();
     // testFiniteOrderedSet();
-    testKartesianProduct();
+    // testKartesianProduct();
 
     return 0;
 }
