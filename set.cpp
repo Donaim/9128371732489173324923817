@@ -28,7 +28,7 @@ bool Set::operator <=(const Set& o) const{ return o.Includes((*this)); }
 
 Set& FunctionalSet::Sum(const Set& b) const {
     const RulePtr rule { [this, &b](const Element& e){ return this->Contains(e) || b.Contains(e); } };
-    return *(new SubSet(*Uniwerse, rule));
+    return *(new RSubSet(*Uniwerse, rule));
 }
 
 Set& FunctionalSet::Intersect(const Set& b) const {
@@ -36,14 +36,15 @@ Set& FunctionalSet::Intersect(const Set& b) const {
     if(bb) { return bb->Sum(*this); }
     else {
         const RulePtr rule { [&b](const Element& e){ return b.Contains(e); } };
-        return *(new SubSet(*this, rule));    
+        return *(new RSubSet(*this, rule));    
     }
 }
 Set& FunctionalSet::Substract(const Set& b) const {
     const RulePtr rule { [this, &b](const Element& e){ return !b.Contains(e); } };
-    return *(new SubSet(*this, rule));
+    return *(new RSubSet(*this, rule));
 }
 
-SubSet::SubSet(const Set &p, const RulePtr f) : parent(p), func(f), ISizeable(-1) {}
-bool SubSet::Contains(const Element& e) const {return parent.Contains(e) && func.F(e);}
+RSubSet::RSubSet(const Set &p, const RulePtr f) : SubSet(p), func(f), ISizeable(-1) {}
+bool RSubSet::Contains(const Element& e) const {return Parent.Contains(e) && func.F(e);}
 
+SubSet::SubSet(const Set &p) : Parent(p) {}

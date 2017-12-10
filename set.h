@@ -31,11 +31,15 @@ public:
 };
 
 class SubSet : public virtual FunctionalSet{
+public:
+    const Set &Parent;
+    SubSet(const Set &p);// : parent(p), func(f) {}
+};
+class RSubSet : public virtual SubSet {
 protected:
     const RulePtr func;
-    const Set &parent;
 public:
-    SubSet(const Set &p, const RulePtr f);// : parent(p), func(f) {}
+    RSubSet(const Set &p, const RulePtr f);// : parent(p), func(f) {}
     bool Contains(const Element& e) const override ;//{return parent.Contains(e) && func(e);}
 };
 
@@ -58,7 +62,7 @@ public:
     Set& Intersect(const Set& b) const override {return (Set&)b;}
     Set& Substract(const Set& b) const override {
         const RulePtr rule { [this, &b](const Element& e){ return !b.Contains(e); } };
-        return *(new SubSet(*this, rule));
+        return *(new RSubSet(*this, rule));
     }
 };
 

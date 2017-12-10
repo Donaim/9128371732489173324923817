@@ -4,10 +4,14 @@
 #include <vector>
 
 #include "set.cpp"
-#include "naturals.cpp"
+#include "fset.cpp"
+#include "orderedset.cpp"
+#include "relation.cpp"
+
 #include "initializator.cpp"
 #include "generator.cpp"
-#include "orderedset.cpp"
+
+#include "naturals.cpp"
 
 using namespace std;
 
@@ -129,7 +133,7 @@ using namespace std;
 //     FiniteSet set = Naturals{}.Generate(GenParams{0, 100, 500, 1000, 0});
 // 	cout << set << endl;
 
-//     SubSet sub{set, RulePtr{[&set](const Element& e)
+//     RSubSet sub{set, RulePtr{[&set](const Element& e)
 //     {
 //         auto x = ToType<const Natural*>(&e);
 //     	return true;
@@ -195,16 +199,16 @@ using namespace std;
 // }
 // void testDivisionExample(){
 //     Naturals N{};
-//     SubSet divis{N, RulePtr { [](const Element& e) { return isDiv(e); }}};
-//     SubSet d3{N, RulePtr { [](const Element& e) { return ToType<const Natural*>(&e)->X % 3 == 0; }}};
+//     RSubSet divis{N, RulePtr { [](const Element& e) { return isDiv(e); }}};
+//     RSubSet d3{N, RulePtr { [](const Element& e) { return ToType<const Natural*>(&e)->X % 3 == 0; }}};
 //     FiniteSet set = Naturals{}.Generate(GenParams{1, 1000, 1000, 2000, 100});
 //     cout << (FiniteSet&)set.Intersect(divis.Intersect(d3)) << endl;
 // }
 // void testQuantifikatorExample(){
 //     // Naturals N{};
-//     // SubSet divis{N, RulePtr { [](const Element& e) { return isDiv(e); }}};
+//     // RSubSet divis{N, RulePtr { [](const Element& e) { return isDiv(e); }}};
 //     FiniteSet set = Naturals{}.Generate(GenParams{1, 1000, 1000, 2000, 100});
-//     SubSet sub{set, RulePtr{[&set](const Element& e)
+//     RSubSet sub{set, RulePtr{[&set](const Element& e)
 //         {
 //             auto n = ToType<const Natural*>(&e);
 //             return set.Exists(RulePtr { [n](const Element& x) { return ToType<const Natural*>(&x)->X * n->X == 10; }});
@@ -216,7 +220,7 @@ using namespace std;
 // }
 void testPrimeQuantifikatorExample(){
     FiniteSet set = Naturals{}.Generate(GenParams{1, 200, 500, 1000, 0});
-    SubSet sub{set, RulePtr{[&set](const Element& e)
+    RSubSet sub{set, RulePtr{[&set](const Element& e)
     {
         auto x = ToType<const Natural*>(&e);
         return set.ForAll(RulePtr { [&set, x](const Element& aa) 
@@ -236,7 +240,7 @@ void testPrimeQuantifikatorExample(){
 
 void testOddExample(){
     FiniteSet set = Naturals{}.Generate(GenParams{1, 500, 500, 1000, 0});
-    SubSet sub{set, RulePtr{[&set](const Element& e)
+    RSubSet sub{set, RulePtr{[&set](const Element& e)
     {
         auto x = ToType<const Natural*>(&e);
         return set.Exists(RulePtr { [&set, x](const Element& aa) 
@@ -265,4 +269,8 @@ void testKartesianProduct(){
     
     cout << set1.KartesianProduct(set2) << endl; 
     cout << (set1.KartesianProduct(set2) == set2.KartesianProduct(set1)) << endl;
+}
+
+void RelationTest(){
+    
 }

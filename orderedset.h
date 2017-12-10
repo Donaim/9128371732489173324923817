@@ -4,8 +4,6 @@
 #include "set.h"
 #include "fset.h"
 
-class FiniteSet;
-
 class IOrderedSet : public virtual Set {
 public:
     const virtual Element& Get(int index) const = 0; 
@@ -21,7 +19,7 @@ public:
     void Print(ostream& os) const override ;
 };
 
-class OrderedPairsFunctionalSet : public FunctionalSet {
+class OrderedPairsFunctionalSet : public virtual FunctionalSet {
 protected:
     const int pairLen;
     const Set** list;

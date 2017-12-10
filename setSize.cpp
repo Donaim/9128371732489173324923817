@@ -17,11 +17,12 @@ public:
     bool InfiniteQ() const {return infinite;}
     int Power() const {return sizepower;}
     bool EmptyQ() const {return elementCount == 0;}
+    const ISizeable& Size() const { return *this; }
 
 public:
     ISizeable(const int size) : ISizeable(size, false, false, 1) {}
     ISizeable() : ISizeable(-1, false, false, -1) {}
-    ISizeable(int size, bool undefined, bool infinite, int sizepow) 
+    ISizeable(int size, bool undefined, bool infinite, int sizepow)
     : elementCount(size), undefined(undefined), infinite(infinite), sizepower(sizepow)
     {
         if(undefined) {elementCount = -1;}

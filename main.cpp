@@ -1,20 +1,5 @@
-#include <iostream>
-#include <typeinfo>
-#include <typeindex>
-#include <vector>
-
-// #include "set.cpp"
-// #include "fset.cpp"
-// #include "orderedset.cpp"
-
-// #include "naturals.cpp"
-// #include "initializator.cpp"
-
 #include "test.cpp"
-
-using namespace std;
-
-int main(void){ cout << "START" << endl;
+int main(void){ std::cout << "START" << std::endl;
 
     // testFiniteContains();
     // testFiniteIncludes();
@@ -27,7 +12,7 @@ int main(void){ cout << "START" << endl;
     // testGenerator();
     // testDivisionExample();
     // testQuantifikatorExample();
-    // testPrimeQuantifikatorExample();
+    testPrimeQuantifikatorExample();
     // testGeneratorFiniteInfiniteIntersect();
     // testOddExample();
     // testFiniteOrderedSet();
