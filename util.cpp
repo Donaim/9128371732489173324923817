@@ -15,10 +15,15 @@ bool IsTypeOf(const z ptr){
     return false;
 }
 
-template<class T, class z>
-T ToType(const z ptr)
+template<class T, class Z>
+T ToType(const Z ptr)
 {
     return dynamic_cast<const T>(ptr);
+}
+template<class T, class Z>
+const T& ToPtrType(const Z* ptr)
+{
+    return *dynamic_cast<const T*>(ptr);
 }
 
 struct RulePtr
@@ -77,54 +82,5 @@ public:
     bool operator == (const T& o) const {
         const T* a = ToType<const T*>(this);
         return equal(*a, o);
-    }
-};
-
-
-#define REPORT_CREATED false
-#define EXPLICIT_ELEMENT_CREATION true
-
-class StaticElement : public virtual Element, public virtual IComparable<StaticElement>, public IPrintable {
-    const uint8_t* const obj;
-    const int size;
-    const size_t id;
-    
-    template <typename T>
-    static uint8_t* cpy(T& p){
-        uint8_t* start = (uint8_t*)&p;
-        uint8_t* copy = new uint8_t[sizeof(p)];
-        for(int i = 0; i < sizeof(p); i++) {copy[i] = start[i];}
-
-        return copy;
-    }
-protected:
-public:
-    template <typename T> 
-    explicit StaticElement(T x) : obj(cpy(x)), size(sizeof(x)), id(type_index(typeid(x)).hash_code()) 
-    {
-    #if REPORT_CREATED 
-        reportCreated();
-    #endif
-    }
-
-    void reportCreated() const {
-        cout << "Created StaticElement: " << *this << ';' << endl;
-    }
-    void Print(ostream& os) const override {
-        os << '[' << '|';
-        for(int i = 0; i < size; i++){ os << (int)obj[i] << '|' ;}
-        os << ']';
-    }
-
-    bool equal(const StaticElement& a, const StaticElement& b) const override {
-        if(
-            a.size <= 0 || b.size <= 0
-            || a.size != b.size
-            || a.id != b.id
-        ) {return false;}
-
-        for(int i = 0; i < a.size; i++){
-            if(a.obj[i] != b.obj[i]) {return false;}
-        }
     }
 };

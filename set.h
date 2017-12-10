@@ -42,7 +42,7 @@ public:
 class IForAll {
 public: virtual bool ForAll(const RulePtr& r) const = 0;
 };
-class IExists{
+class IExists {
 public: virtual bool Exists(const RulePtr& r) const = 0;
 };
 

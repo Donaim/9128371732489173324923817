@@ -3,14 +3,14 @@
 #include <typeindex>
 #include <vector>
 
-#include "set.cpp"
-#include "fset.cpp"
-#include "orderedset.cpp"
+// #include "set.cpp"
+// #include "fset.cpp"
+// #include "orderedset.cpp"
 
 // #include "naturals.cpp"
 // #include "initializator.cpp"
 
-// #include "test.cpp"
+#include "test.cpp"
 
 using namespace std;
 
@@ -29,7 +29,7 @@ int main(void){ cout << "START" << endl;
     // testQuantifikatorExample();
     // testPrimeQuantifikatorExample();
     // testGeneratorFiniteInfiniteIntersect();
-    // testOddExample();
+    testOddExample();
     // testFiniteOrderedSet();
     // testKartesianProduct();
 

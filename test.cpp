@@ -1,15 +1,15 @@
-// #include <iostream>
-// #include <typeinfo>
-// #include <typeindex>
-// #include <vector>
+#include <iostream>
+#include <typeinfo>
+#include <typeindex>
+#include <vector>
 
-// #include "set.cpp"
-// #include "naturals.cpp"
-// #include "initializator.cpp"
-// #include "generator.cpp"
-// #include "orderedset.cpp"
+#include "set.cpp"
+#include "naturals.cpp"
+#include "initializator.cpp"
+#include "generator.cpp"
+#include "orderedset.cpp"
 
-// using namespace std;
+using namespace std;
 
 // void testFiniteContains(){
 //     Initial init;
@@ -214,55 +214,55 @@
 //     cout << (set.Count()) << endl;
 //     cout << (FiniteSet&)set.Intersect(sub) << endl;
 // }
-// void testPrimeQuantifikatorExample(){
-//     FiniteSet set = Naturals{}.Generate(GenParams{1, 500, 500, 1000, 0});
-//     SubSet sub{set, RulePtr{[&set](const Element& e)
-//     {
-//         auto x = ToType<const Natural*>(&e);
-//         return set.ForAll(RulePtr { [&set, x](const Element& aa) 
-//         {
-//             auto a = ToType<const Natural*>(&aa);
-//             return set.ForAll(RulePtr { [&set, x, a](const Element& bb) 
-//             {
-//                 auto b = ToType<const Natural*>(&bb);
-//                 if(a->X * b->X == x->X) { return a->X == 1 || b->X == 1; }
-//                 else { return true; }
-//             }});
-//         }});
-//     }}};
+void testPrimeQuantifikatorExample(){
+    FiniteSet set = Naturals{}.Generate(GenParams{1, 200, 500, 1000, 0});
+    SubSet sub{set, RulePtr{[&set](const Element& e)
+    {
+        auto x = ToType<const Natural*>(&e);
+        return set.ForAll(RulePtr { [&set, x](const Element& aa) 
+        {
+            auto a = ToType<const Natural*>(&aa);
+            return set.ForAll(RulePtr { [&set, x, a](const Element& bb) 
+            {
+                auto b = ToType<const Natural*>(&bb);
+                if(a->X * b->X == x->X) { return a->X == 1 || b->X == 1; }
+                else { return true; }
+            }});
+        }});
+    }}};
     
-//     // cout << (FiniteSet&)sub << endl;
-//     cout << (FiniteSet&)set.Intersect(sub) << endl;
-// }
+    cout << ToPtrType<FiniteSet>(&set.Intersect(sub)) << endl;
+}
 
-// void testOddExample(){
-//     FiniteSet set = Naturals{}.Generate(GenParams{1, 500, 500, 1000, 0});
-//     SubSet sub{set, RulePtr{[&set](const Element& e)
-//     {
-//         auto x = ToType<const Natural*>(&e);
-//         return set.Exists(RulePtr { [&set, x](const Element& aa) 
-//         {
-//             auto a = ToType<const Natural*>(&aa);
-//             return 2 * a->X == x->X;
-//         }});
-//     }}};
+void testOddExample(){
+    FiniteSet set = Naturals{}.Generate(GenParams{1, 500, 500, 1000, 0});
+    SubSet sub{set, RulePtr{[&set](const Element& e)
+    {
+        auto x = ToType<const Natural*>(&e);
+        return set.Exists(RulePtr { [&set, x](const Element& aa) 
+        {
+            auto a = ToType<const Natural*>(&aa);
+            return 2 * a->X == x->X;
+        }});
+    }}};
     
-//     // cout << (FiniteSet&)sub << endl;
-//     cout << ToType<FiniteSet*>(set.Intersect(sub)) << endl;
-// }
 
-// void testFiniteOrderedSet(){
-//     // FiniteOrderedSet s{};
-// }
+    // cout << (FiniteSet&)sub << endl;
+    cout << ToPtrType<FiniteSet>(&set.Intersect(sub)) << endl;
+}
 
-// void testKartesianProduct(){
-//     cout << "testKartesianProduct" << endl;
+void testFiniteOrderedSet(){
+    // FiniteOrderedSet s{};
+}
 
-//     const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 3, 500, 1000, 0});
-//     const FiniteSet set2 = Naturals{}.Generate(GenParams{4, 3, 500, 1000, 0});
-//     // cout << "set1.Count() = " << set1.Count() << endl;
-//     // cout << "set2.Count() = " << set2.Count() << endl;
+void testKartesianProduct(){
+    cout << "testKartesianProduct" << endl;
+
+    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 3, 500, 1000, 0});
+    const FiniteSet set2 = Naturals{}.Generate(GenParams{4, 3, 500, 1000, 0});
+    // cout << "set1.Count() = " << set1.Count() << endl;
+    // cout << "set2.Count() = " << set2.Count() << endl;
     
-//     cout << set1.KartesianProduct(set2) << endl; 
-//     cout << (set1.KartesianProduct(set2) == set2.KartesianProduct(set1)) << endl;
-// }
+    cout << set1.KartesianProduct(set2) << endl; 
+    cout << (set1.KartesianProduct(set2) == set2.KartesianProduct(set1)) << endl;
+}

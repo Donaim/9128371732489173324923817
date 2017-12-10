@@ -1,8 +1,9 @@
 #pragma once
 
-#include "set.cpp"
-
 #include <vector>
+
+#include "set.cpp"
+#include "staticElement.cpp"
 
 using namespace std;
 

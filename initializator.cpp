@@ -1,8 +1,8 @@
 #pragma once
 
+#include <vector>
 #include "Element.h"
 #include "initializator.h"
-#include <vector>
 #include "util.cpp"
 
 using namespace std;
