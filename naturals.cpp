@@ -13,9 +13,11 @@ public:
     Natural(unsigned int x) : X(x) {}
     Natural(int x) : X(x < 0 ? 0 : x) {}
     
-    bool equal(const Natural& a, const Natural& b) const override {return a.X == b.X;} 
+    bool equal(const Natural& b) const override {return this->X == b.X;} 
 
     void Print(ostream& os) const override { os << X; }
+
+    static int C(const Element& e) { return ToPtrType<Natural>(e).X; }
 };
 
 class Naturals : public FunctionalSet, public IGeneratable {

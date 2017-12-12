@@ -41,6 +41,17 @@ public:
     }
 
     virtual bool Contains(const Element& e) const override { return *x == e || *y == e; }
+
+    virtual bool equal(const Set &b) const override {
+        const IOrderedSet* o = ToType<const IOrderedSet*>(&b);
+
+        if(o){
+            if(o->Size != this->Size) {return false;}
+            return o->Get(0) == *x && o->Get(1) == *y;
+        }
+        
+        return false;
+    }
 };
 
 class PairRelation : public virtual Relation {
@@ -68,7 +79,7 @@ public:
 
     PairRelation(const KartesianProduct &kProduct) : PairRelation(kProduct, GetCollection(kProduct)) {}
 
-    const Set& Domain() // dziedzina
+    const Set& Domain() const // dziedzina
     {
         if(!Y_IE) { throw "Y does not support IExists -> Cannot compute the domain"; }
 
@@ -80,7 +91,6 @@ public:
 
             RulePtr rule2 { [this, pair](const Element& e2)
             {
-                // cout << "HELLO " <<endl;
                 pair->y = &e2;
                 return this->Contains(*pair);
             }};
@@ -90,5 +100,168 @@ public:
 
         return *new RSubSet(X, rule);
     }
-    // const Set& CoDomain() 
+    const Set& Range() const // przeciwdziedzina
+    {
+        if(!X_IE) { throw "X does not support IExists -> Cannot compute the codomain"; }
+        
+        TmpPair* pair = new TmpPair{};
+
+        RulePtr rule { [this, pair](const Element &e) 
+        {
+            pair->y = &e;
+
+            RulePtr rule2 { [this, pair](const Element& e2)
+            {
+                pair->x = &e2;
+                return this->Contains(*pair);
+            }};
+
+            return X_IE->Exists(rule2);
+        }};
+
+        return *new RSubSet(Y, rule);
+    }
+
+    bool IsReflexive() const // zwrotna 
+    {
+        if(!X_FA) { throw "X does not support IForAll!"; }
+        
+        TmpPair* pair = new TmpPair{};
+
+        RulePtr rule {
+            [this, pair] (const Element &e) {
+                pair->x = &e;
+                pair->y = &e;
+                return this->Contains(*pair);
+            }};
+
+        return X_FA->ForAll(rule);
+    }
+    bool IsSymmetric() const // symetryczna
+    {
+        if(!X_FA) { throw "X does not support IForAll!"; }
+        if(!Y_FA) { throw "Y does not support IForAll!"; }
+        
+        TmpPair* p1 = new TmpPair{};
+        TmpPair* p2 = new TmpPair{};
+
+        RulePtr rule {
+            [this, p1, p2] (const Element &e) {
+                p1->x = &e;
+                p2->y = &e;
+
+                RulePtr rule2 {
+                    [this, p1, p2] (const Element &e2) {
+                        p1->y = &e2;
+                        p2->x = &e2;
+
+                        if(this->Contains(*p1)) { return this->Contains(*p2); }
+                        else { return true; }
+                }};
+
+                return Y_FA->ForAll(rule2);
+            }};
+
+        return X_FA->ForAll(rule);
+    }
+    bool IsTransitive() const // przechodnia
+    {
+        if(!X_FA) { throw "X does not support IForAll!"; }
+        if(!Y_FA) { throw "Y does not support IForAll!"; }
+        
+        TmpPair* p1 = new TmpPair{}; // x R y
+        TmpPair* p2 = new TmpPair{}; // y R z
+        TmpPair* p3 = new TmpPair{}; // x R z
+
+        RulePtr ruleX {
+            [this, p1, p2, p3] (const Element &ex) {
+                p1->x = &ex;
+                p3->x = &ex;
+
+                RulePtr ruleY {
+                    [this, p1, p2, p3] (const Element &ey) {
+                        p1->y = &ey;
+                        p2->x = &ey;
+
+                        RulePtr ruleY2 {
+                            [this, p1, p2, p3] (const Element &ez) {
+                                p2->y = &ez;
+                                p3->y = &ez;
+
+                                if(this->Contains(*p1) && this->Contains(*p2)) { return this->Contains(*p3); }
+                                else { return true; }
+                        }};
+
+                        return Y_FA->ForAll(ruleY2);
+                }};
+
+                return Y_FA->ForAll(ruleY);
+            }};
+
+        return X_FA->ForAll(ruleX);
+    }
+
+    bool IsTotal() const // spojna
+    {
+        if(!X_FA) { throw "X does not support IForAll!"; }
+        if(!Y_FA) { throw "Y does not support IForAll!"; }
+        
+        TmpPair* p1 = new TmpPair{};
+        TmpPair* p2 = new TmpPair{};
+
+        RulePtr rule {
+            [this, p1, p2] (const Element &e) {
+                p1->x = &e;
+                p2->y = &e;
+
+                RulePtr rule2 {
+                    [this, p1, p2] (const Element &e2) {
+                        p1->y = &e2;
+                        p2->x = &e2;
+
+                        return this->Contains(*p1) || this->Contains(*p2) || *p1 == *p2;
+                }};
+
+                return Y_FA->ForAll(rule2);
+            }};
+
+        return X_FA->ForAll(rule);
+    }
+
+    bool IsAsymmetric() const // asymetryczna 
+    {
+        if(!X_FA) { throw "X does not support IForAll!"; }
+        if(!Y_FA) { throw "Y does not support IForAll!"; }
+        
+        TmpPair* p1 = new TmpPair{};
+        TmpPair* p2 = new TmpPair{};
+
+        RulePtr rule {
+            [this, p1, p2] (const Element &e) {
+                p1->x = &e;
+                p2->y = &e;
+
+                RulePtr rule2 {
+                    [this, p1, p2] (const Element &e2) {
+                        p1->y = &e2;
+                        p2->x = &e2;
+
+                        if(this->Contains(*p1) && this->Contains(*p2)) { return *p1 == *p2; }
+                        else { return true; }
+                }};
+
+                return Y_FA->ForAll(rule2);
+            }};
+
+        return X_FA->ForAll(rule);
+    }
+
+    bool IsEquivalence() const // relacja rownowaznosci 
+    {
+        return IsReflexive() && IsSymmetric() && IsTransitive();
+    }
+    bool IsPartialOrder() const // relacja porzadku
+    {
+        return IsReflexive() && IsAsymmetric() && IsTransitive();
+    }
 };

@@ -21,9 +21,9 @@ T ToType(const Z ptr)
     return dynamic_cast<const T>(ptr);
 }
 template<class T, class Z>
-const T& ToPtrType(const Z* ptr)
+const T& ToPtrType(const Z& ptr)
 {
-    return *dynamic_cast<const T*>(ptr);
+    return *dynamic_cast<const T*>(&ptr);
 }
 
 struct RulePtr
@@ -68,19 +68,15 @@ ostream& operator << (ostream& os, const IPrintable& o){
 template <class T>
 class IComparable : public virtual Element {
 public:
-    virtual bool equal(const T& a, const T& b) const = 0;
+    virtual bool equal(const T& b) const = 0;
     
     bool operator == (const Element& o) const override {
         const T* b = ToType<const T*>(&o);
         if(b) 
         {
-            const T* a = ToType<const T*>(this);
-            return equal(*a, *b);
+            return equal(*b);
         }
         else {return false;}
-    } 
-    bool operator == (const T& o) const {
-        const T* a = ToType<const T*>(this);
-        return equal(*a, o);
     }
+    bool operator == (const T& o) const { return equal(o); }
 };

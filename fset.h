@@ -23,4 +23,6 @@ public:
     // const FiniteSet& KartesianProduct(const FiniteSet& o) const ;
 
     void Print(ostream& os) const override ;
+
+    static const FiniteSet& C(const Set& s);
 };

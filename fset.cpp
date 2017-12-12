@@ -74,3 +74,13 @@ void FiniteSet::Print(ostream& os) const {
     }
     os << '}';
 }
+
+const FiniteSet& FiniteSet::C(const Set& s) {
+    const FiniteSet* ptr = ToType<const FiniteSet*>(&s);
+    if(ptr){
+        return *ptr;
+    }
+    else{
+        throw "Set is not FiniteSet!!!";
+    }
+}

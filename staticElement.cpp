@@ -39,15 +39,15 @@ public:
         os << ']';
     }
 
-    bool equal(const StaticElement& a, const StaticElement& b) const override {
+    bool equal(const StaticElement& b) const override {
         if(
-            a.size <= 0 || b.size <= 0
-            || a.size != b.size
-            || a.id != b.id
+            this->size <= 0 || b.size <= 0
+            || this->size != b.size
+            || this->id != b.id
         ) {return false;}
 
-        for(int i = 0; i < a.size; i++){
-            if(a.obj[i] != b.obj[i]) {return false;}
+        for(int i = 0; i < this->size; i++){
+            if(this->obj[i] != b.obj[i]) {return false;}
         }
     }
 };

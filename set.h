@@ -10,7 +10,7 @@ public:
     bool virtual Contains(const Element& e) const = 0;
 
     bool virtual Includes(const Set& s) const ;
-    bool equal(const Set& a, const Set& b) const override;
+    bool equal(const Set& b) const override;
 
     bool operator >=(const Set& o) const ;
     bool operator <=(const Set& o) const ;

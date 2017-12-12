@@ -223,35 +223,35 @@ void testPrimeQuantifikatorExample(){
     FiniteSet set = Naturals{}.Generate(GenParams{1, 200, 500, 1000, 0});
     RSubSet sub{set, RulePtr{[&set](const Element& e)
     {
-        auto x = ToType<const Natural*>(&e);
+        auto x = Natural::C(e);
         return set.ForAll(RulePtr { [&set, x](const Element& aa) 
         {
-            auto a = ToType<const Natural*>(&aa);
+            auto a = Natural::C(aa);
             return set.ForAll(RulePtr { [&set, x, a](const Element& bb) 
             {
-                auto b = ToType<const Natural*>(&bb);
-                if(a->X * b->X == x->X) { return a->X == 1 || b->X == 1; }
+                auto b = Natural::C(bb);
+                if(a * b == x) { return a == 1 || b == 1; }
                 else { return true; }
             }});
         }});
     }}};
     
-    cout << ToPtrType<FiniteSet>(&set.Intersect(sub)) << endl;
+    cout << FiniteSet::C(set.Intersect(sub)) << endl;
 }
 
 void testOddExample(){
     FiniteSet set = Naturals{}.Generate(GenParams{1, 500, 500, 1000, 0});
     RSubSet sub{set, RulePtr{[&set](const Element& e)
     {
-        auto x = ToType<const Natural*>(&e);
+        auto x = Natural::C(e);
         return set.Exists(RulePtr { [&set, x](const Element& aa) 
         {
-            auto a = ToType<const Natural*>(&aa);
-            return 2 * a->X == x->X;
+            auto a = Natural::C(aa);
+            return 2 * a == x;
         }});
     }}};
     
-    cout << ToPtrType<FiniteSet>(&set.Intersect(sub)) << endl;
+    cout << FiniteSet::C(set.Intersect(sub)) << endl;
 }
 
 void testFiniteOrderedSet(){
@@ -278,10 +278,11 @@ public:
     MyRel(const KartesianProduct &kp) : PairRelation(kp), SubSet(kp), Relation(kp) {}
 
     virtual bool Defines(const IOrderedSet &o) const override {
-        int x = ToPtrType<Natural>(&(o.Get(0))).X;
-        int y = ToPtrType<Natural>(&(o.Get(1))).X;
+        int x = Natural::C(o.Get(0));
+        int y = Natural::C(o.Get(1));
 
-        return x == y - 1;
+        return x <= y;
+        // return x == y - 1;
         // return (x + y) % 2 == 0;
     }
 };
@@ -289,13 +290,34 @@ public:
 void testRelationDomain(){
     cout << "testRelationDomain" << endl;
 
-    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 3, 500, 1000, 0});
-    const FiniteSet set2 = Naturals{}.Generate(GenParams{4, 3, 500, 1000, 0});
+    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 50, 500, 1000, 0});
+    const FiniteSet set2 = Naturals{}.Generate(GenParams{40, 50, 500, 1000, 0});
     
     auto k1 = *new FiniteKartesianPSet(set1, set2);
 
     MyRel mr{k1};
-    const Set& dom = mr.Domain();
+    const Set& dom = mr.Range();
 
-    cout << ToPtrType<FiniteSet>(&(set1.Intersect(dom))) << endl;
+    cout << FiniteSet::C(set1.Intersect(dom)) << endl;
+}
+
+void testRelationProps(){
+    cout << "testRelationDomain" << endl;
+
+    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 5, 500, 1000, 0});
+    const FiniteSet set2 = Naturals{}.Generate(GenParams{5, 5, 500, 1000, 0});
+    
+    auto k1 = *new FiniteKartesianPSet(set1, set1);
+    cout << k1 << endl;
+
+    MyRel mr{k1};
+
+    // cout << mr.IsReflexive() << endl;
+    // cout << mr.IsSymmetric() << endl;
+    // cout << mr.IsTransitive() << endl;
+    // cout << mr.IsTotal() << endl;
+    // cout << mr.IsAsymmetric() << endl;
+
+    cout << mr.IsEquivalence() << endl;
+    cout << mr.IsPartialOrder() << endl;
 }

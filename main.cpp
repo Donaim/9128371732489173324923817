@@ -17,7 +17,8 @@ int main(void){ std::cout << "START" << std::endl;
     // testOddExample();
     // testFiniteOrderedSet();
     // testKartesianProduct();
-    testRelationDomain();
+    // testRelationDomain();
+    testRelationProps();
 
     return 0;
 }

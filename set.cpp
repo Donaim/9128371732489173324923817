@@ -20,7 +20,7 @@ bool Set::Includes(const Set& s) const {
         return false;
     }
 }
-bool Set::equal (const Set& a, const Set& b) const {return a.Includes(b) && b.Includes(a);}
+bool Set::equal (const Set& b) const {return this->Includes(b) && b.Includes(*this);}
 bool Set::operator >=(const Set& o) const{ return this->Includes(o); }
 bool Set::operator <=(const Set& o) const{ return o.Includes((*this)); }
 
