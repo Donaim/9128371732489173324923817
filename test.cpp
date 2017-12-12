@@ -273,6 +273,29 @@ void testKartesianProduct(){
     cout << (k1 == k2) << endl;
 }
 
-void RelationTest(){
+class MyRel : public PairRelation {
+public:
+    MyRel(const KartesianProduct &kp) : PairRelation(kp), SubSet(kp), Relation(kp) {}
+
+    virtual bool Defines(const IOrderedSet &o) const override {
+        int x = ToPtrType<Natural>(&(o.Get(0))).X;
+        int y = ToPtrType<Natural>(&(o.Get(1))).X;
+
+        return x == y - 1;
+        // return (x + y) % 2 == 0;
+    }
+};
+
+void testRelationDomain(){
+    cout << "testRelationDomain" << endl;
+
+    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 3, 500, 1000, 0});
+    const FiniteSet set2 = Naturals{}.Generate(GenParams{4, 3, 500, 1000, 0});
     
+    auto k1 = *new FiniteKartesianPSet(set1, set2);
+
+    MyRel mr{k1};
+    const Set& dom = mr.Domain();
+
+    cout << ToPtrType<FiniteSet>(&(set1.Intersect(dom))) << endl;
 }

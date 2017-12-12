@@ -8,8 +8,11 @@
 #include <iostream>
 using namespace std;
 
-FunctionalKartesianSet::FunctionalKartesianSet(const Set** list, const int size) : list(list), KartesianProduct(size), ISizeable() {}
+FunctionalKartesianSet::FunctionalKartesianSet(const Set** list, const int size)
+ : KartesianProduct(size), ISizeable(), ISetCollection(list) {}
 bool FunctionalKartesianSet::Contains(const Element& e) const {
+    // cout << "IM HERE!" << endl;
+    
     const IOrderedSet* o = ToType<const IOrderedSet*>(&e);
 
     if(o)

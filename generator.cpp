@@ -16,8 +16,12 @@ struct GenParams {
     friend ostream& operator << (ostream& os, const GenParams& me);
 };
 ostream& operator << (ostream& os, const GenParams& me){
-    os << '[' << "SeqStart: " << me.SeqStart << ';' << ' ' << "SeqCount: " << me.SeqCount << ';' << ' '
-    << "RandStart: " << me.RandStart << ';' << ' ' << "RandEnd: " << me.RandEnd << ';' << ' ' << "RandCout: " << me.RandCount << ';' << ']';
+    os << '[' << "SeqStart: " << me.SeqStart << ';' << ' ' << "SeqCount: " << me.SeqCount << ';';
+    if(me.RandCount > 0) 
+    {
+        os << ' ' << "RandStart: " << me.RandStart << ';' << ' ' << "RandEnd: " << me.RandEnd << ';' << ' ' << "RandCout: " << me.RandCount << ';';
+    }
+    os << ']';
 }
 
 class IGeneratable {

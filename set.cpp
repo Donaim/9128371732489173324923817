@@ -42,7 +42,8 @@ Set& FunctionalSet::Substract(const Set& b) const {
     return *(new RSubSet(*this, rule));
 }
 
-RSubSet::RSubSet(const Set &p, const RulePtr f) : SubSet(p), func(f), ISizeable(-1) {}
-bool RSubSet::Contains(const Element& e) const {return Parent.Contains(e) && func.F(e);}
-
 SubSet::SubSet(const Set &p) : Parent(p) {}
+bool SubSet::Contains(const Element& e) const { return Parent.Contains(e) && Filter(e);}
+
+RSubSet::RSubSet(const Set &p, const RulePtr f) : SubSet(p), func(f), ISizeable(-1) {}
+bool RSubSet::Filter(const Element& e) const {return func.F(e);}

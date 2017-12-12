@@ -21,8 +21,6 @@ public:
 };
 
 class FunctionalSet : public virtual Set{
-protected:
-    FunctionalSet() : ISizeable(-1) {}
 public:
     Set& Sum(const Set& b) const override ;
     Set& Intersect(const Set& b) const override ;
@@ -33,13 +31,15 @@ class SubSet : public virtual FunctionalSet{
 public:
     const Set &Parent;
     SubSet(const Set &p);// : parent(p), func(f) {}
+    bool Contains(const Element& e) const override ;//{return parent.Contains(e) && func(e);}
+    virtual bool Filter(const Element& e) const = 0;
 };
 class RSubSet : public virtual SubSet {
 protected:
     const RulePtr func;
 public:
     RSubSet(const Set &p, const RulePtr f);// : parent(p), func(f) {}
-    bool Contains(const Element& e) const override ;//{return parent.Contains(e) && func(e);}
+    virtual bool Filter(const Element& e) const override ;//{return parent.Contains(e) && func(e);}
 };
 
 class IForAll {

@@ -60,26 +60,6 @@ Set& FiniteSet::Substract(const Set& b) const {
     return *new FiniteSet(nlist, count);
 }
 
-// const FiniteSet& FiniteSet::KartesianProduct(const FiniteSet& o) const {
-//     const int osize = o.Size.Count(), tsize = this->Size.Count();
-//     const int n = osize * tsize;
-//     const Element **els = new const Element*[n];
-    
-//     int z = 0;
-//     for(int i = 0, to = tsize; i < to; i++)
-//     {
-//         for(int k = 0; k < osize; k++)
-//         {
-//             const Element **pair = new const Element*[2];
-//             pair[0] = this->list[i];
-//             pair[1] = o.list[k];
-//             els[z++] = new FiniteOrderedSet(pair, 2);
-//         }
-//     }
-
-//     return *new FiniteSet(els, n);
-// }
-
 void FiniteSet::Print(ostream& os) const {
     if(Size.UndefinedQ()) { os << "{f->?}"; return; }
     else if(Size.InfiniteQ()) { os << "{∞}"; return; }

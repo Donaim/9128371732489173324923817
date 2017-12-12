@@ -12,11 +12,12 @@ int main(void){ std::cout << "START" << std::endl;
     // testGenerator();
     // testDivisionExample();
     // testQuantifikatorExample();
-    testPrimeQuantifikatorExample();
+    // testPrimeQuantifikatorExample();
     // testGeneratorFiniteInfiniteIntersect();
     // testOddExample();
     // testFiniteOrderedSet();
     // testKartesianProduct();
+    testRelationDomain();
 
     return 0;
 }

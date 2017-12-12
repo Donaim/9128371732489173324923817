@@ -66,7 +66,8 @@ ostream& operator << (ostream& os, const Cardinality& me) {
         os << "NA";
     }
     else if(me.infinite){
-        os << "I:" << me.sizepower;
+        os << "∞";
+        if(me.sizepower > INFINITY_POW) {os << ":" << me.sizepower; }
     }
     else {throw "WTF???";}
 
