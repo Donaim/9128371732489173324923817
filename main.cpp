@@ -1,24 +1,15 @@
 #include "test.cpp"
 int main(void){ std::cout << "START" << std::endl;
 
-    // testFiniteContains();
-    // testFiniteIncludes();
-    // testPrinting();
-    // testFiniteSum();
-    // testFiniteIntersect();
-    // testFiniteInfiniteIntersect();
-    // testFiniteInfiniteSubstract();
-    // testFiniteIntersect_InfiniteSumInfinite();    
-    // testGenerator();
-    // testDivisionExample();
-    // testQuantifikatorExample();
-    // testPrimeQuantifikatorExample();
-    // testGeneratorFiniteInfiniteIntersect();
-    // testOddExample();
-    // testFiniteOrderedSet();
-    // testKartesianProduct();
-    // testRelationDomain();
-    testRelationProps();
+    try {
+        go_test();
+    }
+    catch (const std::exception &ex) {
+        cout << ex.what() << std::endl;
+    }
+    catch (const std::exception * ex) {
+        cout << ex->what() << std::endl;
+    }
 
     return 0;
 }

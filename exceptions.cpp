@@ -1,15 +1,22 @@
+#pragma once
+
 #include <string>
 #include <stdexcept>
 
 using namespace std;
 
-class TestClass : public std::runtime_error
+class Set;
+class Element;
+
+class SetEx : public std::runtime_error
 {
-    std::string what_message;
+    const char * const what_message;
 public:
+    SetEx(const char* const str) : what_message(str), runtime_error(str) {} 
+
     virtual const char* what() const throw() override
     {
-        return what_message.c_str();
+        return what_message;
     }
 };
 

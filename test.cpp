@@ -11,6 +11,7 @@
 
 #include "initializator.cpp"
 #include "generator.cpp"
+#include "exceptions.cpp"
 
 #include "naturals.cpp"
 
@@ -321,4 +322,32 @@ void testRelationProps(){
 
     // cout << mr.IsEquivalence() << endl;
     // cout << mr.IsPartialOrder() << endl;
+}
+
+void testExceptions() {
+    throw new SetEx("Hi there!");
+}
+
+////////////////////////////////////////////////////////
+
+void go_test() {
+    // testFiniteContains();
+    // testFiniteIncludes();
+    // testPrinting();
+    // testFiniteSum();
+    // testFiniteIntersect();
+    // testFiniteInfiniteIntersect();
+    // testFiniteInfiniteSubstract();
+    // testFiniteIntersect_InfiniteSumInfinite();    
+    // testGenerator();
+    // testDivisionExample();
+    // testQuantifikatorExample();
+    // testPrimeQuantifikatorExample();
+    // testGeneratorFiniteInfiniteIntersect();
+    // testOddExample();
+    // testFiniteOrderedSet();
+    // testKartesianProduct();
+    // testRelationDomain();
+    // testRelationProps();
+    testExceptions();
 }

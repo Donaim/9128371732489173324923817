@@ -3,6 +3,7 @@
 #include <functional>
 #include <utility>
 #include "Element.h"
+#include "exceptions.cpp"
 
 class Set;
 
