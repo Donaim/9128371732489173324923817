@@ -25,62 +25,37 @@ public:
     virtual bool Defines(const IOrderedSet& o) const = 0;
 };
 
-class TmpPair : public virtual FunctionalSet, public virtual IOrderedSet {
-public:
-    TmpPair() : x(nullptr), y(nullptr), ISizeable(2) {}
-
-    mutable const Element* x;
-    mutable const Element* y;
-
-    const Element& Get(int index) const override {
-        switch(index){
-            case 0: return *x;
-            case 1: return *y;
-            default: throw new SetEx( "Index out of range 2 !");
-        }
-    }
-
-    virtual bool Contains(const Element& e) const override { return *x == e || *y == e; }
-
-    virtual bool equal(const Set &b) const override {return equal((const Element&)b);}
-    bool equal(const Element &b) const {
-        const IOrderedSet* o = ToType<const IOrderedSet*>(&b);
-
-        if(o){
-            if(o->Size != this->Size) {return false;}
-            return o->Get(0) == *x && o->Get(1) == *y;
-        }
-        
-        return false;
-    }
-    virtual bool operator == (const Element &e) const override { return equal(e); }
-};
-
 class PairRelation : public virtual Relation {
     static const ISetCollection& GetCollection(const KartesianProduct &kp) {
         const ISetCollection* re = ToType<const ISetCollection*>(&kp);
         if(re) 
         {
-            if(kp.PairSize != *new Cardinality(2, false, false, 1)) { throw new SetEx( "Wrong PairSize! Expected=2 \n"); }
+            if(kp.PairSize != *new Cardinality(2, false, false, 1)) { throw new SetEx( "Wrong PairSize! Expected=2"); }
             return *re;
         }
         throw new SetEx( "Kartesian product is not of ISetCollection!");
     }
 
-    PairRelation(const KartesianProduct &kProduct, const ISetCollection &scoll) 
-        : Relation(kProduct), SubSet(kProduct),
-        X(*scoll.list[0]), Y(*scoll.list[1]), 
-        X_FA(ToType<const IForAll*> (scoll.list[0])), Y_FA(ToType<const IForAll*> (scoll.list[1])), 
-        X_IE(ToType<const IExists*> (scoll.list[0])), Y_IE(ToType<const IExists*> (scoll.list[1])) 
-        { }
+    PairRelation(const KartesianProduct &kProduct, const ISetCollection &scoll)
+        : PairRelation(kProduct, *scoll.list[0], *scoll.list[1]) {}
+    PairRelation(const KartesianProduct &kProduct, const Set &x, const Set &y) : 
+        Relation(kProduct), SubSet(kProduct),        
+        X(x), Y(y),
+        X_FA(ToType<const IForAll*> (&x)), Y_FA(ToType<const IForAll*> (&y)), 
+        X_IE(ToType<const IExists*> (&x)), Y_IE(ToType<const IExists*> (&y)) {}
 
     const IForAll * const X_FA, * const Y_FA;
     const IExists * const X_IE, * const Y_IE;
+
 public:
     const Set &X, &Y;
-
     PairRelation(const KartesianProduct &kProduct) : PairRelation(kProduct, GetCollection(kProduct)) {}
 
+public:
+    virtual bool Defines(const IOrderedSet &o) const override { return this->Defines(o.Get(0), o.Get(1)); }
+    virtual bool Defines(const Element &x, const Element &y) const = 0;
+
+public:
     const Set& Domain() const // dziedzina
     {
         if(!Y_IE) { throw new SetEx("Y does not support IExists -> Cannot compute the domain"); }

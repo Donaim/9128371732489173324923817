@@ -255,23 +255,19 @@ void testOddExample(){
     cout << conv<IPrintable>(set.Intersect(sub)) << endl;
 }
 
-void testFiniteOrderedSet(){
-    // FiniteOrderedSet s{};
-}
-
 void testKartesianProduct(){
     cout << "testKartesianProduct" << endl;
 
     const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 3, 500, 1000, 0});
-    const FiniteSet set2 = Naturals{}.Generate(GenParams{7, 0, 500, 1000, 0});
+    const FiniteSet set2 = Naturals{}.Generate(GenParams{4, 3, 500, 1000, 0});
     // cout << "set1.Count() = " << set1.Count() << endl;
     // cout << "set2.Count() = " << set2.Count() << endl;
     
     auto k1 = *new FiniteKartesianPSet(set1, set2);
     auto k2 = *new FiniteKartesianPSet(set2, set1);
 
-    // cout << k1 << endl;
-    cout << conv<FiniteSet>(set1.Union(set2)) << endl;
+    cout << k1 << endl;
+    // cout << conv<FiniteSet>(set1.Union(set2)) << endl;
     // cout << (k1 == k2) << endl;
 }
 
@@ -279,13 +275,14 @@ class MyRel : public PairRelation {
 public:
     MyRel(const KartesianProduct &kp) : PairRelation(kp), SubSet(kp), Relation(kp) {}
 
-    virtual bool Defines(const IOrderedSet &o) const override {
-        int x = Natural::C(o.Get(0));
-        int y = Natural::C(o.Get(1));
+    virtual bool Defines(const Element &a, const Element &b) const override {
+        int x = Natural::C(a);
+        int y = Natural::C(b);
 
-        return x <= y;
-        // return x == y - 1;
+        // return x <= y;
+        return x % y == 0;
         // return (x + y) % 2 == 0;
+        // return x == y - 1;
     }
 };
 
@@ -293,14 +290,16 @@ void testRelationDomain(){
     cout << "testRelationDomain" << endl;
 
     const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 50, 500, 1000, 0});
-    const FiniteSet set2 = Naturals{}.Generate(GenParams{40, 50, 500, 1000, 0});
+    const FiniteSet set2 = Naturals{}.Generate(GenParams{1, 50, 500, 1000, 0});
     
     auto k1 = *new FiniteKartesianPSet(set1, set2);
 
     MyRel mr{k1};
-    const Set& dom = mr.Range();
+    const Set& dom = mr.Domain();
+    const Set& range = mr.Range();
 
-    cout << FiniteSet::C(set1.Intersect(dom)) << endl;
+    cout << conv<FiniteSet>(set1.Intersect(dom)) << endl;
+    cout << conv<FiniteSet>(set2.Intersect(range)) << endl;
 }
 
 void testRelationProps(){
@@ -345,9 +344,8 @@ void go_test() {
     // testPrimeQuantifikatorExample();
     // testGeneratorFiniteInfiniteIntersect();
     // testOddExample();
-    // testFiniteOrderedSet();
-    // testKartesianProduct();
+    testKartesianProduct();
     // testRelationDomain();
-    testRelationProps();
+    // testRelationProps();
     // testExceptions();
 }
