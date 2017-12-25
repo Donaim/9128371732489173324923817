@@ -1,6 +1,7 @@
 #pragma once
 
 #include "fset.cpp"
+#include "orderedset.cpp"
 #include "util.cpp"
 #include "initializator.cpp"
 #include <stdlib.h>
@@ -30,7 +31,7 @@ protected:
     virtual Element& GenElement(int x, int mode) const = 0;
     virtual int NextRand(int down, int up) const { return (int)((rand() / (float)RAND_MAX) * (up - down) + down); }
 public:
-    virtual FiniteSet& Generate(const GenParams& p) const {
+    virtual FiniteOrderedSet& Generate(const GenParams& p) const {
         Initial* zz = new Initial{};
 
         cout << p << endl;
@@ -44,7 +45,7 @@ public:
 
         //cout << "Inited size = " << zz->size() << endl;
 
-        return *new FiniteSet(*zz);
+        return *new FiniteOrderedSet(zz->Get(), zz->size());
     }
 };
 

@@ -306,7 +306,7 @@ void testRelationDomain(){
 void testRelationProps(){
     cout << "testRelationDomain" << endl;
 
-    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 10, 500, 1000, 0});
+    const FiniteOrderedSet set1 = Naturals{}.Generate(GenParams{1, 10, 500, 1000, 0});
     // const FiniteSet set2 = Naturals{}.Generate(GenParams{5, 50, 500, 1000, 0});
     
     auto k1 = *new FiniteKartesianPSet(set1, set1);
@@ -346,8 +346,8 @@ void go_test() {
     // testGeneratorFiniteInfiniteIntersect();
     // testOddExample();
     // testFiniteOrderedSet();
-    testKartesianProduct();
+    // testKartesianProduct();
     // testRelationDomain();
-    // testRelationProps();
+    testRelationProps();
     // testExceptions();
 }
