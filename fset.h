@@ -16,7 +16,7 @@ public:
     bool ForAll(const RulePtr& r) const override ;
     bool Exists(const RulePtr& r) const override ;
 
-    Set& Sum(const Set& b) const override ;
+    Set& Union(const Set& b) const override ;
     Set& Intersect(const Set& b) const override ;
     Set& Substract(const Set& b) const override ;
 

@@ -70,7 +70,7 @@ class IComparable : public virtual Element {
 public:
     virtual bool equal(const T& b) const = 0;
     
-    bool operator == (const Element& o) const override {
+    virtual bool operator == (const Element& o) const override {
         const T* b = ToType<const T*>(&o);
         if(b) 
         {
@@ -78,5 +78,5 @@ public:
         }
         else {return false;}
     }
-    bool operator == (const T& o) const { return equal(o); }
+    virtual bool operator == (const T& o) const { return equal(o); }
 };

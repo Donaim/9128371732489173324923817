@@ -236,7 +236,7 @@ void testPrimeQuantifikatorExample(){
         }});
     }}};
     
-    cout << FiniteSet::C(set.Intersect(sub)) << endl;
+    cout << ToPtrType<IPrintable>(set.Intersect(sub)) << endl;
 }
 
 void testOddExample(){
@@ -251,7 +251,7 @@ void testOddExample(){
         }});
     }}};
     
-    cout << FiniteSet::C(set.Intersect(sub)) << endl;
+    cout << ToPtrType<IPrintable>(set.Intersect(sub)) << endl;
 }
 
 void testFiniteOrderedSet(){
@@ -262,15 +262,16 @@ void testKartesianProduct(){
     cout << "testKartesianProduct" << endl;
 
     const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 3, 500, 1000, 0});
-    const FiniteSet set2 = Naturals{}.Generate(GenParams{4, 3, 500, 1000, 0});
+    const FiniteSet set2 = Naturals{}.Generate(GenParams{7, 0, 500, 1000, 0});
     // cout << "set1.Count() = " << set1.Count() << endl;
     // cout << "set2.Count() = " << set2.Count() << endl;
     
     auto k1 = *new FiniteKartesianPSet(set1, set2);
     auto k2 = *new FiniteKartesianPSet(set2, set1);
 
-    cout << k1 << endl;
-    cout << (k1 == k2) << endl;
+    // cout << k1 << endl;
+    cout << FiniteSet::C(set1.Union(set2)) << endl;
+    // cout << (k1 == k2) << endl;
 }
 
 class MyRel : public PairRelation {
@@ -304,20 +305,20 @@ void testRelationDomain(){
 void testRelationProps(){
     cout << "testRelationDomain" << endl;
 
-    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 5, 500, 1000, 0});
-    const FiniteSet set2 = Naturals{}.Generate(GenParams{5, 5, 500, 1000, 0});
+    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 10, 500, 1000, 0});
+    // const FiniteSet set2 = Naturals{}.Generate(GenParams{5, 50, 500, 1000, 0});
     
     auto k1 = *new FiniteKartesianPSet(set1, set1);
-    cout << k1 << endl;
+    // cout << k1 << endl;
 
     MyRel mr{k1};
 
-    // cout << mr.IsReflexive() << endl;
-    // cout << mr.IsSymmetric() << endl;
-    // cout << mr.IsTransitive() << endl;
-    // cout << mr.IsTotal() << endl;
-    // cout << mr.IsAsymmetric() << endl;
+    cout << mr.IsReflexive() << endl;
+    cout << mr.IsSymmetric() << endl;
+    cout << mr.IsTransitive() << endl;
+    cout << mr.IsTotal() << endl;
+    cout << mr.IsAsymmetric() << endl;
 
-    cout << mr.IsEquivalence() << endl;
-    cout << mr.IsPartialOrder() << endl;
+    // cout << mr.IsEquivalence() << endl;
+    // cout << mr.IsPartialOrder() << endl;
 }

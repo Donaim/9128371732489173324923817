@@ -18,3 +18,18 @@ public:
     
     void Print(ostream& os) const override ;
 };
+
+class OrderedPair : public virtual FiniteOrderedSet {
+    static const Element** createPair(const Element &a, const Element &b){
+        const Element ** re = new const Element*[2];
+        re[0] = &a;
+        re[1] = &b;
+        return re;
+    }
+    OrderedPair(const Element **els) : FiniteOrderedSet(els, 2), FiniteSet(els, 2), ISizeable(2) {}
+public:
+    const Element& A() const { return *FiniteSet::list[0]; }
+    const Element& B() const { return *FiniteSet::list[1]; }
+   
+    OrderedPair(const Element &a, const Element &b) : OrderedPair(createPair(a, b)) {}
+};

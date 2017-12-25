@@ -15,14 +15,14 @@ public:
     bool operator >=(const Set& o) const ;
     bool operator <=(const Set& o) const ;
 
-    virtual Set& Sum(const Set& b) const = 0;
+    virtual Set& Union(const Set& b) const = 0;
     virtual Set& Intersect(const Set& b) const = 0;
     virtual Set& Substract(const Set& b) const = 0;
 };
 
 class FunctionalSet : public virtual Set{
 public:
-    Set& Sum(const Set& b) const override ;
+    Set& Union(const Set& b) const override ;
     Set& Intersect(const Set& b) const override ;
     Set& Substract(const Set& b) const override ;
 };
@@ -57,7 +57,7 @@ public:
     bool ForAll(const RulePtr& r) const override {return false;}
     bool Exists(const RulePtr& r) const override {return true;}
 
-    Set& Sum(const Set& b) const override {return (Set&)*this;}
+    Set& Union(const Set& b) const override {return (Set&)*this;}
     Set& Intersect(const Set& b) const override {return (Set&)b;}
     Set& Substract(const Set& b) const override {
         const RulePtr rule { [this, &b](const Element& e){ return !b.Contains(e); } };

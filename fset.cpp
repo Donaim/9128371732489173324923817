@@ -22,7 +22,7 @@ bool FiniteSet::Exists(const RulePtr& r) const {
     }  
     return false;
 }
-Set& FiniteSet::Sum(const Set& b) const {
+Set& FiniteSet::Union(const Set& b) const {
     const FiniteSet* bb = ToType<const FiniteSet*>(&b);
     if(bb) {
         int bbsize = bb->Size.Count();
@@ -35,7 +35,7 @@ Set& FiniteSet::Sum(const Set& b) const {
 
         return *new FiniteSet(nlist, n);
     }
-    else { return b.Sum(*this); }
+    else { return b.Union(*this); }
 }
 Set& FiniteSet::Intersect(const Set& b) const {
     int n = (b.Size < this->Size) ? b.Size.Count() : this->Size.Count();

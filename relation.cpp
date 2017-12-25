@@ -42,7 +42,8 @@ public:
 
     virtual bool Contains(const Element& e) const override { return *x == e || *y == e; }
 
-    virtual bool equal(const Set &b) const override {
+    virtual bool equal(const Set &b) const override {return equal((const Element&)b);}
+    bool equal(const Element &b) const {
         const IOrderedSet* o = ToType<const IOrderedSet*>(&b);
 
         if(o){
@@ -52,6 +53,7 @@ public:
         
         return false;
     }
+    virtual bool operator == (const Element &e) const override { return equal(e); }
 };
 
 class PairRelation : public virtual Relation {

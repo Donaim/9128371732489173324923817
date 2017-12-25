@@ -24,14 +24,14 @@ bool Set::equal (const Set& b) const {return this->Includes(b) && b.Includes(*th
 bool Set::operator >=(const Set& o) const{ return this->Includes(o); }
 bool Set::operator <=(const Set& o) const{ return o.Includes((*this)); }
 
-Set& FunctionalSet::Sum(const Set& b) const {
+Set& FunctionalSet::Union(const Set& b) const {
     const RulePtr rule { [this, &b](const Element& e){ return this->Contains(e) || b.Contains(e); } };
     return *(new RSubSet(*Uniwerse, rule));
 }
 
 Set& FunctionalSet::Intersect(const Set& b) const {
     const FiniteSet* bb = ToType<const FiniteSet*>(&b);
-    if(bb) { return bb->Sum(*this); }
+    if(bb) { return bb->Union(*this); }
     else {
         const RulePtr rule { [&b](const Element& e){ return b.Contains(e); } };
         return *(new RSubSet(*this, rule));    
