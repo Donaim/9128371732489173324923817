@@ -1,6 +1,9 @@
 #pragma once
 
 #include <iostream>
+
+#include "exceptions.cpp"
+
 using namespace std;
 
 class Cardinality {
@@ -36,6 +39,8 @@ public:
     friend ostream& operator <<(ostream& os, const Cardinality& me);
 
     bool operator < (const Cardinality& o) const {
+        if(this->undefined || o.undefined) { throw new SetEx("Attempt to compare size of set with undefined size!"); }
+
         if(sizepower == o.sizepower) {
             return elementCount < o.elementCount;
         }
@@ -45,6 +50,8 @@ public:
         return false;
     }
     bool operator > (const Cardinality& o) const {
+        if(this->undefined || o.undefined) { throw new SetEx("Attempt to compare size of set with undefined size!"); }
+      
         if(sizepower == o.sizepower) {
             return elementCount > o.elementCount;
         }
@@ -54,7 +61,9 @@ public:
         return false;
     }
     bool operator == (const Cardinality& o) const {
-        return (sizepower == o.sizepower) && (elementCount == o.elementCount) && (!(undefined || o.undefined));
+        if(this->undefined || o.undefined) { throw new SetEx("Attempt to compare size of set with undefined size!"); }
+
+        return (sizepower == o.sizepower) && (elementCount == o.elementCount);
     }
     bool operator != (const Cardinality& o) const { return !( *this == o ); }
 };
@@ -69,7 +78,7 @@ ostream& operator << (ostream& os, const Cardinality& me) {
         os << "∞";
         if(me.sizepower > INFINITY_POW) {os << ":" << me.sizepower; }
     }
-    else {throw "WTF???";}
+    else {throw new SetEx("WTF???");}
 
     return os;
 }

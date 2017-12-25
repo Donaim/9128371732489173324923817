@@ -81,6 +81,6 @@ const FiniteSet& FiniteSet::C(const Set& s) {
         return *ptr;
     }
     else{
-        throw "Set is not FiniteSet!!!";
+        throw new SetEx("Set is not FiniteSet!!!");
     }
 }

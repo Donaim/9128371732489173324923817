@@ -36,7 +36,7 @@ public:
         switch(index){
             case 0: return *x;
             case 1: return *y;
-            default: throw "Index out of range 2 !";
+            default: throw new SetEx( "Index out of range 2 !");
         }
     }
 
@@ -61,10 +61,10 @@ class PairRelation : public virtual Relation {
         const ISetCollection* re = ToType<const ISetCollection*>(&kp);
         if(re) 
         {
-            if(kp.PairSize != *new Cardinality(2, false, false, 1)) { throw "Wrong PairSize! Expected=2 \n"; }
+            if(kp.PairSize != *new Cardinality(2, false, false, 1)) { throw new SetEx( "Wrong PairSize! Expected=2 \n"); }
             return *re;
         }
-        throw "Kartesian product is not of ISetCollection!";
+        throw new SetEx( "Kartesian product is not of ISetCollection!");
     }
 
     PairRelation(const KartesianProduct &kProduct, const ISetCollection &scoll) 
@@ -83,7 +83,7 @@ public:
 
     const Set& Domain() const // dziedzina
     {
-        if(!Y_IE) { throw "Y does not support IExists -> Cannot compute the domain"; }
+        if(!Y_IE) { throw new SetEx("Y does not support IExists -> Cannot compute the domain"); }
 
         TmpPair* pair = new TmpPair{};
 
@@ -104,7 +104,7 @@ public:
     }
     const Set& Range() const // przeciwdziedzina
     {
-        if(!X_IE) { throw "X does not support IExists -> Cannot compute the codomain"; }
+        if(!X_IE) { throw new SetEx("X does not support IExists -> Cannot compute the codomain"); }
         
         TmpPair* pair = new TmpPair{};
 
@@ -126,7 +126,7 @@ public:
 
     bool IsReflexive() const // zwrotna 
     {
-        if(!X_FA) { throw "X does not support IForAll!"; }
+        if(!X_FA) { throw new SetEx("X does not support IForAll!"); }
         
         TmpPair* pair = new TmpPair{};
 
@@ -141,8 +141,8 @@ public:
     }
     bool IsSymmetric() const // symetryczna
     {
-        if(!X_FA) { throw "X does not support IForAll!"; }
-        if(!Y_FA) { throw "Y does not support IForAll!"; }
+        if(!X_FA) { throw new SetEx("X does not support IForAll!"); }
+        if(!Y_FA) { throw new SetEx("Y does not support IForAll!"); }
         
         TmpPair* p1 = new TmpPair{};
         TmpPair* p2 = new TmpPair{};
@@ -168,8 +168,8 @@ public:
     }
     bool IsTransitive() const // przechodnia
     {
-        if(!X_FA) { throw "X does not support IForAll!"; }
-        if(!Y_FA) { throw "Y does not support IForAll!"; }
+        if(!X_FA) { throw new SetEx("X does not support IForAll!"); }
+        if(!Y_FA) { throw new SetEx("Y does not support IForAll!"); }
         
         TmpPair* p1 = new TmpPair{}; // x R y
         TmpPair* p2 = new TmpPair{}; // y R z
@@ -205,8 +205,8 @@ public:
 
     bool IsTotal() const // spojna
     {
-        if(!X_FA) { throw "X does not support IForAll!"; }
-        if(!Y_FA) { throw "Y does not support IForAll!"; }
+        if(!X_FA) { throw new SetEx("X does not support IForAll!"); }
+        if(!Y_FA) { throw new SetEx("Y does not support IForAll!"); }
         
         TmpPair* p1 = new TmpPair{};
         TmpPair* p2 = new TmpPair{};
@@ -232,8 +232,8 @@ public:
 
     bool IsAsymmetric() const // asymetryczna 
     {
-        if(!X_FA) { throw "X does not support IForAll!"; }
-        if(!Y_FA) { throw "Y does not support IForAll!"; }
+        if(!X_FA) { throw new SetEx("X does not support IForAll!"); }
+        if(!Y_FA) { throw new SetEx("Y does not support IForAll!"); }
         
         TmpPair* p1 = new TmpPair{};
         TmpPair* p2 = new TmpPair{};

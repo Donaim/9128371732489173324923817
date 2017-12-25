@@ -21,7 +21,7 @@ bool FiniteOrderedSet::Includes(const Set& s) const {
 
 const Element& FiniteOrderedSet::Get(int index) const 
 {
-    if(index > Size.Count()) { throw "index is out of range!"; } 
+    if(index > Size.Count()) { throw new SetEx("index is out of range!"); } 
     return *FiniteSet::list[index]; 
 } 
 

@@ -15,7 +15,7 @@ bool Set::Includes(const Set& s) const {
     else 
     {
     #if INCLUDE_ERRORS
-        throw "Set does not support ForAll quantifier :(";
+        throw new SetEx("Set does not support ForAll quantifier :(");
     #endif
         return false;
     }

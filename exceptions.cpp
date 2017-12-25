@@ -14,9 +14,6 @@ class SetEx : public std::runtime_error
 public:
     SetEx(const char* const str) : what_message(str), runtime_error(str) {} 
 
-    virtual const char* what() const throw() override
-    {
-        return what_message;
-    }
+    virtual const char* what() const throw() override { return what_message; }
 };
 
