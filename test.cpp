@@ -237,7 +237,7 @@ void testPrimeQuantifikatorExample(){
         }});
     }}};
     
-    cout << ToPtrType<IPrintable>(set.Intersect(sub)) << endl;
+    cout << conv<IPrintable>(set.Intersect(sub)) << endl;
 }
 
 void testOddExample(){
@@ -252,7 +252,7 @@ void testOddExample(){
         }});
     }}};
     
-    cout << ToPtrType<IPrintable>(set.Intersect(sub)) << endl;
+    cout << conv<IPrintable>(set.Intersect(sub)) << endl;
 }
 
 void testFiniteOrderedSet(){
@@ -271,7 +271,7 @@ void testKartesianProduct(){
     auto k2 = *new FiniteKartesianPSet(set2, set1);
 
     // cout << k1 << endl;
-    cout << FiniteSet::C(set1.Union(set2)) << endl;
+    cout << conv<FiniteSet>(set1.Union(set2)) << endl;
     // cout << (k1 == k2) << endl;
 }
 
@@ -346,8 +346,8 @@ void go_test() {
     // testGeneratorFiniteInfiniteIntersect();
     // testOddExample();
     // testFiniteOrderedSet();
-    // testKartesianProduct();
+    testKartesianProduct();
     // testRelationDomain();
     // testRelationProps();
-    testExceptions();
+    // testExceptions();
 }

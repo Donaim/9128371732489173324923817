@@ -22,7 +22,7 @@ T ToType(const Z ptr)
     return dynamic_cast<const T>(ptr);
 }
 template<class T, class Z>
-const T& ToPtrType(const Z& ptr)
+const T& conv(const Z& ptr)
 {
     return *dynamic_cast<const T*>(&ptr);
 }

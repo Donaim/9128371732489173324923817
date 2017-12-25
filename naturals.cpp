@@ -17,7 +17,7 @@ public:
 
     void Print(ostream& os) const override { os << X; }
 
-    static int C(const Element& e) { return ToPtrType<Natural>(e).X; }
+    static int C(const Element& e) { return conv<Natural>(e).X; }
 };
 
 class Naturals : public FunctionalSet, public IGeneratable {
