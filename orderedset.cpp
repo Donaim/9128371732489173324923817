@@ -100,14 +100,23 @@ const Element & PairProduct::Get(int index) const {
 }
 
 
-// const Element** FinitePairProduct::getList(const FiniteOrderedSet & a, const FiniteOrderedSet & b) {
-//     return (Element**)nullptr;
-// }
-// FinitePairProduct::FinitePairProduct(const FiniteOrderedSet & a, const FiniteOrderedSet & b) 
-//     : PairProduct(a, b), FiniteOrderedSet(getList(a, b), a.Size), ISizeable(a.Size) 
-// {
+const Element** FinitePairProduct::getList(const FiniteOrderedSet & a, const FiniteOrderedSet & b) {
+    const int n = a.Size.Count();
+    const Element **els = new const Element*[n];
 
-// }
-// bool FinitePairProduct::Contains(const IOrderedSet & o) const {
-//     return false;
-// }
+    for(int i = 0, to = n; i < to; i++)
+    {
+        els[i] = new OrderedPair(a.Get(i), b.Get(i));
+    }
+
+    return els;
+}
+FinitePairProduct::FinitePairProduct(const FiniteOrderedSet & a, const FiniteOrderedSet & b) 
+    : FinitePairProduct(a, b, getList(a, b)) 
+    {}
+FinitePairProduct::FinitePairProduct(const FiniteOrderedSet & a, const FiniteOrderedSet & b, const Element ** list)
+    : PairProduct(a, b), FiniteOrderedSet(list, a.Size.Count()), FiniteSet(list, a.Size.Count()), ISizeable(a.Size)
+    {}
+bool FinitePairProduct::Contains(const Element & e) const { return PairProduct::Contains(e); }
+bool FinitePairProduct::Contains(const OrderedPair & p) const { return FiniteSet::Contains(p); }
+const Element & FinitePairProduct::Get(int index) const { return FiniteOrderedSet::Get(index); }

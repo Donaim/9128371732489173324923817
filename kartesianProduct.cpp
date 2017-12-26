@@ -37,10 +37,7 @@ const FiniteSet& FiniteKartesianPSet::product(const FiniteSet& a, const FiniteSe
     {
         for(int k = 0; k < osize; k++)
         {
-            const Element **pair = new const Element*[2];
-            pair[0] = a.list[i];
-            pair[1] = b.list[k];
-            els[z++] = new FiniteOrderedSet(pair, 2);
+            els[z++] = new OrderedPair(*a.list[i], *b.list[k]);
         }
     }
 

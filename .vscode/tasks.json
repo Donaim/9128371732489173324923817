@@ -6,19 +6,22 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "g++",
+            "command": "",
             "args": [
-                "main.cpp",
+                "rm a.out",
+                ";",
+                "g++ main.cpp",
                 ";",
                 "./a.out"
             ],
             "group": "build",
             "presentation": {
                 // Reveal the output only if unrecognized errors occur.
-                "reveal": "always"
+                "reveal": "always",
+                "focus": true
             },
             // Use the standard MS compiler pattern to detect errors, warnings and infos
-            "problemMatcher": "$msCompile"
+            "problemMatcher" : "$gcc"
         }
     ]
 }

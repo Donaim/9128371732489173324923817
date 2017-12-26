@@ -47,8 +47,6 @@ public:
             zz->Add(GenElement(NextRand(p.RandStart, p.RandEnd), 1));
         }
 
-        //cout << "Inited size = " << zz->size() << endl;
-
         return *new FiniteOrderedSet(zz->Get(), zz->size());
     }
 };

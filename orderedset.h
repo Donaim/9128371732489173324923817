@@ -48,7 +48,7 @@ public:
 };
 
 
-class PairProduct : public virtual IOrderedSet, public virtual IPrintable {
+class PairProduct : public virtual IOrderedSet {
 public:
     const IOrderedSet & A, & B;
     PairProduct(const IOrderedSet & a, const IOrderedSet & b);
@@ -59,10 +59,13 @@ public:
     virtual const Element & Get(int index) const override ;
 };
 
-// class FinitePairProduct : public virtual PairProduct, public virtual FiniteOrderedSet {
-//     static const Element** getList(const FiniteOrderedSet & a, const FiniteOrderedSet & b) ;
-// public:
-//     FinitePairProduct(const FiniteOrderedSet & a, const FiniteOrderedSet & b) ;
+class FinitePairProduct : public virtual PairProduct, public virtual FiniteOrderedSet {
+    static const Element** getList(const FiniteOrderedSet & a, const FiniteOrderedSet & b) ;
+    FinitePairProduct(const FiniteOrderedSet & a, const FiniteOrderedSet & b, const Element** list) ;
+public:
+    FinitePairProduct(const FiniteOrderedSet & a, const FiniteOrderedSet & b) ;
 
-//     virtual bool Contains(const OrderedPair & p) const override ;
-// };
+    virtual bool Contains(const Element & e) const override ;
+    virtual bool Contains(const OrderedPair & p) const override ;
+    virtual const Element & Get(int) const override ;
+};

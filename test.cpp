@@ -234,7 +234,7 @@ test(testPrimeQuantifikatorExample)
             return set.ForAll(RulePtr { [&set, x, a](const Element& bb) 
             {
                 auto b = Natural::C(bb);
-                if(a * b == x) { return a == 1 || b == 1; }
+                if(a * b == x) { return a == 1 || b == 1; } // a * b = x => a = 1 || b = 1
                 else { return true; }
             }});
         }});
@@ -259,8 +259,8 @@ test(testOddExample)
 }
 
 test(testKartesianProduct)
-    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 3, 500, 1000, 0});
-    const FiniteSet set2 = Naturals{}.Generate(GenParams{4, 3, 500, 1000, 0});
+    const FiniteOrderedSet set1 = Naturals{}.Generate(GenParams{1, 3, 500, 1000, 0});
+    const FiniteOrderedSet set2 = Naturals{}.Generate(GenParams{4, 3, 500, 1000, 0});
     // cout << "set1.Count() = " << set1.Count() << endl;
     // cout << "set2.Count() = " << set2.Count() << endl;
     
@@ -324,6 +324,21 @@ test(testExceptions)
     throw new SetEx("Hi there!");
 }
 
+test(testFiniteOrderedPair)
+    const FiniteOrderedSet set1 = Naturals{}.Generate(GenParams{1, 3, 500, 1000, 0});
+    const FiniteOrderedSet set2 = Naturals{}.Generate(GenParams{4, 3, 500, 1000, 0});
+    // cout << "set1.Count() = " << set1.Count() << endl;
+    // cout << "set2.Count() = " << set2.Count() << endl;
+    
+    auto k1 = *new FinitePairProduct(set1, set2);
+    auto k2 = *new FinitePairProduct(set2, set1);
+
+    cout << k1 << endl;
+    // cout << k2 << endl;
+    // cout << (k1 == k2) << endl;
+    // cout << conv<FiniteSet>(set1.Union(set2)) << endl;
+}
+
 ////////////////////////////////////////////////////////
 
 void go_test() {
@@ -345,4 +360,5 @@ void go_test() {
     // testRelationDomain();
     testRelationProps();
     // testExceptions();
+    testFiniteOrderedPair();
 }
