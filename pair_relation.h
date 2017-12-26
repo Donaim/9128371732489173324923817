@@ -20,7 +20,7 @@ class PairRelation : public virtual Relation {
 public:
     const Set &X, &Y;
     PairRelation(const KartesianProduct &kProduct) ;
-    
+
 public:
     virtual bool Defines(const IOrderedSet &o) const ;
     virtual bool Defines(const Element &x, const Element &y) const = 0;
@@ -38,11 +38,6 @@ public: //properties
     bool IsEquivalence() const ;
     bool IsPartialOrder() const ;
 public: // abstraction
-    // const FiniteSet & FunctionForm() const {
-    //     // auto kf = ToType<const FiniteKartesianPSet*>(&Parent);
-    //     // if(!kf) { throw new SetEx("Parent KartesianProduct is not finite! Cannot compute PairForm!"); }
-        
-        
-    // }
-
+    const Set & AbstractionClass(const Element & e) const ;
+    const FiniteSet & FunctionForm() const ;
 };

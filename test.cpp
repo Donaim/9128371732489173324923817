@@ -280,8 +280,8 @@ public:
         int x = Natural::C(a);
         int y = Natural::C(b);
 
-        // return x <= y;
-        return x % y == 0;
+        return x <= y;
+        // return x % y == 0;
         // return (x + y) % 2 == 0;
         // return x == y - 1;
     }
@@ -341,6 +341,33 @@ test(testFiniteOrderedPair)
     // cout << (k1 == k2) << endl;
     // cout << conv<FiniteSet>(set1.Union(set2)) << endl;
 }
+test(testAbstractionClass)
+    const FiniteOrderedSet set1 = Naturals{}.Generate(GenParams{1, 10, 500, 1000, 0});
+    // const FiniteSet set2 = Naturals{}.Generate(GenParams{5, 50, 500, 1000, 0});
+    
+    auto k1 = *new FiniteKartesianPSet(set1, set1);
+    // cout << k1 << endl;
+
+    MyRel mr{k1};
+
+    const Element & e = set1.Get(4);
+    cout << "AbstractionClass of [" << conv<IPrintable>(e) << "] = " << conv<FiniteSet>(mr.AbstractionClass(e)) << endl;
+}
+
+test(testRelationFunctionForm)
+    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 5, 500, 1000, 0});
+    const FiniteSet set2 = Naturals{}.Generate(GenParams{1, 5, 500, 1000, 0});
+    
+    auto k1 = *new FiniteKartesianPSet(set1, set2);
+
+    MyRel mr{k1};
+    // const Set& dom = mr.Domain();
+    // const Set& range = mr.Range();
+
+    auto pf = mr.FunctionForm();
+
+    cout << pf << endl;
+}
 
 ////////////////////////////////////////////////////////
 
@@ -364,4 +391,6 @@ void go_test() {
     testRelationProps();
     // testExceptions();
     testFiniteOrderedPair();
+    testAbstractionClass();
+    testRelationFunctionForm();
 }

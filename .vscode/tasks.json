@@ -5,23 +5,37 @@
     "tasks": [
         {
             "label": "build",
-            "type": "shell",
             "command": "",
             "args": [
                 "rm a.out",
                 ";",
-                "g++ main.cpp",
-                ";",
-                "./a.out"
+                "g++ main.cpp"
             ],
-            "group": "build",
             "presentation": {
                 // Reveal the output only if unrecognized errors occur.
                 "reveal": "always",
-                "focus": true
+                "focus": false,
+                "panel": "shared"
             },
             // Use the standard MS compiler pattern to detect errors, warnings and infos
-            "problemMatcher" : "$gcc"
+            "problemMatcher" : "$gcc",
+            "group": "build",
+            "type": "shell"  
+        },
+        {
+            "label": "run",
+            "dependsOn" : "build",
+            "command": "./a.out",
+            "presentation": {
+                // Reveal the output only if unrecognized errors occur.
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            },
+            // Use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher" : "$gcc",
+            "group": "build",
+            "type": "shell"
         }
     ]
 }
