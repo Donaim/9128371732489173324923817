@@ -17,6 +17,9 @@
 
 using namespace std;
 
+#define QUOTE(x) #x
+#define test(name) void name () { cout << endl << endl << QUOTE(name) << endl;
+
 // void testFiniteContains(){
 //     Initial init;
 //     init.AddCustom(100);
@@ -220,7 +223,7 @@ using namespace std;
 //     cout << (set.Count()) << endl;
 //     cout << (FiniteSet&)set.Intersect(sub) << endl;
 // }
-void testPrimeQuantifikatorExample(){
+test(testPrimeQuantifikatorExample)
     FiniteSet set = Naturals{}.Generate(GenParams{1, 200, 500, 1000, 0});
     RSubSet sub{set, RulePtr{[&set](const Element& e)
     {
@@ -240,7 +243,7 @@ void testPrimeQuantifikatorExample(){
     cout << conv<IPrintable>(set.Intersect(sub)) << endl;
 }
 
-void testOddExample(){
+test(testOddExample)
     FiniteSet set = Naturals{}.Generate(GenParams{1, 500, 500, 1000, 0});
     RSubSet sub{set, RulePtr{[&set](const Element& e)
     {
@@ -255,9 +258,7 @@ void testOddExample(){
     cout << conv<IPrintable>(set.Intersect(sub)) << endl;
 }
 
-void testKartesianProduct(){
-    cout << "testKartesianProduct" << endl;
-
+test(testKartesianProduct)
     const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 3, 500, 1000, 0});
     const FiniteSet set2 = Naturals{}.Generate(GenParams{4, 3, 500, 1000, 0});
     // cout << "set1.Count() = " << set1.Count() << endl;
@@ -286,9 +287,7 @@ public:
     }
 };
 
-void testRelationDomain(){
-    cout << "testRelationDomain" << endl;
-
+test(testRelationDomain)
     const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 50, 500, 1000, 0});
     const FiniteSet set2 = Naturals{}.Generate(GenParams{1, 50, 500, 1000, 0});
     
@@ -302,9 +301,7 @@ void testRelationDomain(){
     cout << conv<FiniteSet>(set2.Intersect(range)) << endl;
 }
 
-void testRelationProps(){
-    cout << "testRelationDomain" << endl;
-
+test(testRelationProps)
     const FiniteOrderedSet set1 = Naturals{}.Generate(GenParams{1, 10, 500, 1000, 0});
     // const FiniteSet set2 = Naturals{}.Generate(GenParams{5, 50, 500, 1000, 0});
     
@@ -313,17 +310,17 @@ void testRelationProps(){
 
     MyRel mr{k1};
 
-    cout << mr.IsReflexive() << endl;
-    cout << mr.IsSymmetric() << endl;
-    cout << mr.IsTransitive() << endl;
-    cout << mr.IsTotal() << endl;
-    cout << mr.IsAsymmetric() << endl;
+    cout << "IsReflexive  : " << mr.IsReflexive() << endl;
+    cout << "IsSymmetric  : " << mr.IsSymmetric() << endl;
+    cout << "IsTransitive : " << mr.IsTransitive() << endl;
+    cout << "IsTotal      : " << mr.IsTotal() << endl;
+    cout << "IsAsymmetric : " << mr.IsAsymmetric() << endl;
 
     // cout << mr.IsEquivalence() << endl;
     // cout << mr.IsPartialOrder() << endl;
 }
 
-void testExceptions() {
+test(testExceptions)
     throw new SetEx("Hi there!");
 }
 
@@ -341,11 +338,11 @@ void go_test() {
     // testGenerator();
     // testDivisionExample();
     // testQuantifikatorExample();
-    // testPrimeQuantifikatorExample();
+    testPrimeQuantifikatorExample();
     // testGeneratorFiniteInfiniteIntersect();
     // testOddExample();
     testKartesianProduct();
     // testRelationDomain();
-    // testRelationProps();
+    testRelationProps();
     // testExceptions();
 }

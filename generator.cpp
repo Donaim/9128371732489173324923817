@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define REPORT_GENERATION false
+
 struct GenParams {
     int SeqStart    = 0;
     int SeqCount    = 1000;
@@ -32,10 +34,12 @@ protected:
     virtual int NextRand(int down, int up) const { return (int)((rand() / (float)RAND_MAX) * (up - down) + down); }
 public:
     virtual FiniteOrderedSet& Generate(const GenParams& p) const {
+#if REPORT_GENERATION
+        cout << p << endl;
+#endif
+
         Initial* zz = new Initial{};
 
-        cout << p << endl;
-        
         for(int i = p.SeqStart, to = p.SeqStart + p.SeqCount; i < to; i++){
             zz->Add(GenElement(i, 0));
         }

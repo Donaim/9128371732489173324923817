@@ -4,11 +4,13 @@
 #include "set.h"
 #include "fset.h"
 
-class IOrderedSet : public virtual Set {
+class IOrderedSet : public virtual Set, public virtual IPrintable {
 public:
     const virtual Element& Get(int index) const = 0; 
 
     bool virtual Includes(const Set& s) const override;
+
+    virtual void Print(ostream& os) const override ;
 };
 
 class FiniteOrderedSet : public virtual IOrderedSet, public virtual FiniteSet {
@@ -46,9 +48,7 @@ public:
 };
 
 
-
-
-class PairProduct : public virtual FunctionalSet, public virtual IOrderedSet {
+class PairProduct : public virtual IOrderedSet, public virtual IPrintable {
 public:
     const IOrderedSet & A, & B;
     PairProduct(const IOrderedSet & a, const IOrderedSet & b);
@@ -59,11 +59,9 @@ public:
     virtual const Element & Get(int index) const override ;
 };
 
-
-
-// class FinitePairProduct : public virtual PairProduct {
+// class FinitePairProduct : public virtual PairProduct, public virtual FiniteOrderedSet {
+//     static const Element** getList(const FiniteOrderedSet & a, const FiniteOrderedSet & b) ;
 // public:
-//     const FiniteOrderedSet & AF, & BF;
 //     FinitePairProduct(const FiniteOrderedSet & a, const FiniteOrderedSet & b) ;
 
 //     virtual bool Contains(const OrderedPair & p) const override ;

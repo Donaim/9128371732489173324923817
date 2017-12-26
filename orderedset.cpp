@@ -18,25 +18,29 @@ bool IOrderedSet::Includes(const Set& s) const {
     }
     else { return false; }
 }
-const Element& FiniteOrderedSet::Get(int index) const 
-{
-    if(index > Size.Count()) { throw new SetEx("index is out of range!"); } 
-    return *FiniteSet::list[index]; 
-} 
-void FiniteOrderedSet::Print(ostream& os) const {
+void IOrderedSet::Print(ostream& os) const {
     if(Size.UndefinedQ()) { os << "(f->?)"; return; }
     else if(Size.InfiniteQ()) { os << "(∞)"; return; }
     else if(Size.EmptyQ()) { os << '(' << ')'; return; }
 
     os << '(';
-    IPrintable::printElement(os, list[0]);
+    IPrintable::printElement(os, &Get(0));
     for(int i = 1, to = Size.Count(); i < to; i++) {
         os << ',';
-        IPrintable::printElement(os, list[i]);
+        IPrintable::printElement(os, &Get(i));
     }
+
     os << ')';
 }
 
+
+
+const Element& FiniteOrderedSet::Get(int index) const 
+{
+    if(index > Size.Count()) { throw new SetEx("index is out of range!"); } 
+    return *FiniteSet::list[index]; 
+} 
+void FiniteOrderedSet::Print(ostream& os) const { IOrderedSet::Print(os); }
 
 
 const Element** OrderedPair::createPair(const Element &a, const Element &b) {
@@ -75,6 +79,8 @@ bool TmpPair::equal(const Element &b) const {
 bool TmpPair::operator == (const Element &e) const { return equal(e); }
 
 
+
+
 PairProduct::PairProduct(const IOrderedSet & a, const IOrderedSet & b) : A(a), B(b), ISizeable(a.Size) {
     if(a.Size != b.Size) { throw new SetEx("To create PairProduct sets must be of same size!"); }
 }
@@ -93,3 +99,15 @@ const Element & PairProduct::Get(int index) const {
     return *new OrderedPair(A.Get(index), B.Get(index));
 }
 
+
+// const Element** FinitePairProduct::getList(const FiniteOrderedSet & a, const FiniteOrderedSet & b) {
+//     return (Element**)nullptr;
+// }
+// FinitePairProduct::FinitePairProduct(const FiniteOrderedSet & a, const FiniteOrderedSet & b) 
+//     : PairProduct(a, b), FiniteOrderedSet(getList(a, b), a.Size), ISizeable(a.Size) 
+// {
+
+// }
+// bool FinitePairProduct::Contains(const IOrderedSet & o) const {
+//     return false;
+// }
