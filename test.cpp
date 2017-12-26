@@ -8,6 +8,7 @@
 #include "orderedset.cpp"
 #include "kartesianProduct.cpp"
 #include "relation.cpp"
+#include "pair_relation.cpp"
 
 #include "initializator.cpp"
 #include "generator.cpp"
@@ -355,12 +356,12 @@ void go_test() {
     // testGenerator();
     // testDivisionExample();
     // testQuantifikatorExample();
-    // testPrimeQuantifikatorExample();
+    testPrimeQuantifikatorExample();
     // testGeneratorFiniteInfiniteIntersect();
     // testOddExample();
-    // testKartesianProduct();
+    testKartesianProduct();
     testRelationDomain();
-    // testRelationProps();
+    testRelationProps();
     // testExceptions();
-    // testFiniteOrderedPair();
+    testFiniteOrderedPair();
 }

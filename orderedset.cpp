@@ -32,6 +32,7 @@ void IOrderedSet::Print(ostream& os) const {
 
     os << ')';
 }
+bool IOrderedSet::Contains(const Element & e, int at) const { return this->Get(at) == e; }
 
 
 
@@ -120,3 +121,5 @@ FinitePairProduct::FinitePairProduct(const FiniteOrderedSet & a, const FiniteOrd
 bool FinitePairProduct::Contains(const Element & e) const { return PairProduct::Contains(e); }
 bool FinitePairProduct::Contains(const OrderedPair & p) const { return FiniteSet::Contains(p); }
 const Element & FinitePairProduct::Get(int index) const { return FiniteOrderedSet::Get(index); }
+
+

@@ -6,7 +6,8 @@
 
 class IOrderedSet : public virtual Set, public virtual IPrintable {
 public:
-    const virtual Element& Get(int index) const = 0; 
+    const virtual Element& Get(int index) const = 0;
+    bool Contains(const Element & e, int at) const ;
 
     bool virtual Includes(const Set& s) const override;
 
@@ -58,6 +59,8 @@ public:
 
     virtual const Element & Get(int index) const override ;
 };
+
+
 
 class FinitePairProduct : public virtual PairProduct, public virtual FiniteOrderedSet {
     static const Element** getList(const FiniteOrderedSet & a, const FiniteOrderedSet & b) ;
