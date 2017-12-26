@@ -5,7 +5,6 @@
 #include "util.cpp"
 
 class Set : public virtual Element, public virtual ISizeable, public virtual IComparable<Set> {
-protected:
 public:
     bool virtual Contains(const Element& e) const = 0;
 
@@ -51,6 +50,8 @@ public: virtual bool Exists(const RulePtr& r) const = 0;
 
 class Uniwersum : public Set, public IForAll, public IExists{
 public:
+    Uniwersum() : ISizeable(Cardinality(-1, false, true, INT32_MAX)) {}
+
     bool Contains(const Element& e) const override {return true;}
     bool Includes(const Set& s) const override {return true;}
     

@@ -7,6 +7,8 @@
 
 class Set;
 
+#define QUOTE(x) #x
+
 //usage : IsTypeOf<TargetType>(&Element)
 template<class T, class z>
 bool IsTypeOf(const z ptr){

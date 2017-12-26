@@ -6,6 +6,8 @@
 
 using namespace std;
 
+#define UNDEFINED_SIZE_ERROR false
+
 class Cardinality {
     const bool undefined;
     int elementCount;
@@ -23,9 +25,9 @@ public:
     bool EmptyQ() const {return elementCount == 0;}
 
 public:
-    Cardinality(const int size) : Cardinality(size, false, false, 1) {}
-    Cardinality() : Cardinality(-1, false, false, -1) {}
-    Cardinality(int size, bool undefined, bool infinite, int sizepow)
+    explicit Cardinality(const int size) : Cardinality(size, false, false, 1) {}
+    explicit Cardinality() : Cardinality(-1, false, false, -1) {}
+    explicit Cardinality(int size, bool undefined, bool infinite, int sizepow)
     : elementCount(size), undefined(undefined), infinite(infinite), sizepower(sizepow)
     {
         if(undefined) {elementCount = -1;}
@@ -34,6 +36,10 @@ public:
 
         if(elementCount > 0) {sizepower = FINITE_POW;}
         else if(elementCount == 0) {sizepower = 0;}
+
+#if UNDEFINED_SIZE_ERROR
+        if(undefined) { throw new SetEx("Set with undefined size created!"); }
+#endif
     }
 
     friend ostream& operator <<(ostream& os, const Cardinality& me);
@@ -85,9 +91,10 @@ ostream& operator << (ostream& os, const Cardinality& me) {
 
 class ISizeable {
 protected:
-    ISizeable(Cardinality size) : Size(size) {}
-    ISizeable(int size, bool undefined, bool infinite, int sizepow) : Size(size, undefined, infinite, sizepow) {} 
-    ISizeable() : ISizeable(-1, true, false, -1) {}
+    explicit ISizeable(Cardinality size) : Size(size) {}
+    explicit ISizeable(int size, bool undefined, bool infinite, int sizepow) : Size(size, undefined, infinite, sizepow) {} 
+    explicit ISizeable() : ISizeable(-1, true, false, -1) {}
+    explicit ISizeable(int size) : ISizeable(size, false, false, 1) {}
 public:
     const Cardinality Size;
 };

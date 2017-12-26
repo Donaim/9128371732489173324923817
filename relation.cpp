@@ -30,7 +30,7 @@ class PairRelation : public virtual Relation {
         const ISetCollection* re = ToType<const ISetCollection*>(&kp);
         if(re) 
         {
-            if(kp.PairSize != *new Cardinality(2, false, false, 1)) { throw new SetEx( "Wrong PairSize! Expected=2"); }
+            if(kp.PairSize.Count() != 2) { throw new SetEx( "Wrong PairSize! Expected=2"); }
             return *re;
         }
         throw new SetEx( "Kartesian product is not of ISetCollection!");
@@ -98,6 +98,13 @@ public:
 
         return *new RSubSet(Y, rule);
     }
+    const FiniteSet & PairForm() const {
+        auto kf = ToType<const FiniteKartesianPSet*>(&Parent);
+        if(!kf) { throw new SetEx("Parent KartesianProduct is not finite! Cannot compute PairForm!"); }
+        
+        return conv<FiniteSet>(kf->Intersect(*this));
+    }
+
 
     bool IsReflexive() const // zwrotna 
     {

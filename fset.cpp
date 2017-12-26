@@ -38,7 +38,8 @@ Set& FiniteSet::Union(const Set& b) const {
     else { return b.Union(*this); }
 }
 Set& FiniteSet::Intersect(const Set& b) const {
-    int n = (b.Size < this->Size) ? b.Size.Count() : this->Size.Count();
+    // int n = (b.Size < this->Size) ? b.Size.Count() : this->Size.Count();
+    int n = (b.Size.UndefinedQ() || b.Size > this->Size) ? this->Size.Count() : b.Size.Count(); 
     const Element** nlist = new const Element*[n];
 
     int count = 0;

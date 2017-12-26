@@ -17,7 +17,6 @@
 
 using namespace std;
 
-#define QUOTE(x) #x
 #define test(name) void name () { cout << endl << endl << QUOTE(name) << endl;
 
 // void testFiniteContains(){
@@ -288,17 +287,20 @@ public:
 };
 
 test(testRelationDomain)
-    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 50, 500, 1000, 0});
-    const FiniteSet set2 = Naturals{}.Generate(GenParams{1, 50, 500, 1000, 0});
+    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 5, 500, 1000, 0});
+    const FiniteSet set2 = Naturals{}.Generate(GenParams{1, 5, 500, 1000, 0});
     
     auto k1 = *new FiniteKartesianPSet(set1, set2);
 
     MyRel mr{k1};
-    const Set& dom = mr.Domain();
-    const Set& range = mr.Range();
+    // const Set& dom = mr.Domain();
+    // const Set& range = mr.Range();
 
-    cout << conv<FiniteSet>(set1.Intersect(dom)) << endl;
-    cout << conv<FiniteSet>(set2.Intersect(range)) << endl;
+    auto pf = mr.PairForm();
+
+    // cout << conv<FiniteSet>(set1.Intersect(dom)) << endl;
+    // cout << conv<FiniteSet>(set2.Intersect(range)) << endl;
+    cout << pf << endl;
 }
 
 test(testRelationProps)
@@ -353,12 +355,12 @@ void go_test() {
     // testGenerator();
     // testDivisionExample();
     // testQuantifikatorExample();
-    testPrimeQuantifikatorExample();
+    // testPrimeQuantifikatorExample();
     // testGeneratorFiniteInfiniteIntersect();
     // testOddExample();
-    testKartesianProduct();
-    // testRelationDomain();
-    testRelationProps();
+    // testKartesianProduct();
+    testRelationDomain();
+    // testRelationProps();
     // testExceptions();
-    testFiniteOrderedPair();
+    // testFiniteOrderedPair();
 }
