@@ -30,7 +30,7 @@
                 // Reveal the output only if unrecognized errors occur.
                 "reveal": "always",
                 "focus": true,
-                "panel": "new"
+                "panel": "shared" // usually = "new"
             },
             // Use the standard MS compiler pattern to detect errors, warnings and infos
             "problemMatcher" : "$gcc",

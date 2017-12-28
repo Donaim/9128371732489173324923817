@@ -248,6 +248,7 @@ const FiniteSet & PairRelation::FunctionForm() const {
 
     for(int i = 0, to = n; i < to; i++)
     {
+        // cout << "End of " << i << endl ;
         const Element & el = *xf->list[i];
         els[i] = new OrderedPair(el, AbstractionClass(el));
     }

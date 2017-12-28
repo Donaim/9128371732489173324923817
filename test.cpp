@@ -15,6 +15,7 @@
 #include "exceptions.cpp"
 
 #include "naturals.cpp"
+#include "symbolic_generator.cpp"
 
 using namespace std;
 
@@ -280,8 +281,8 @@ public:
         int x = Natural::C(a);
         int y = Natural::C(b);
 
-        return x <= y;
-        // return x % y == 0;
+        // return x <= y;
+        return x % y == 0;
         // return (x + y) % 2 == 0;
         // return x == y - 1;
     }
@@ -350,23 +351,24 @@ test(testAbstractionClass)
 
     MyRel mr{k1};
 
-    const Element & e = set1.Get(4);
+    const Element & e = set1.Get(9);
     cout << "AbstractionClass of [" << conv<IPrintable>(e) << "] = " << conv<FiniteSet>(mr.AbstractionClass(e)) << endl;
 }
 
 test(testRelationFunctionForm)
-    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 5, 500, 1000, 0});
-    const FiniteSet set2 = Naturals{}.Generate(GenParams{1, 5, 500, 1000, 0});
+    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 10, 500, 1000, 0});
+    const FiniteSet set2 = Naturals{}.Generate(GenParams{1, 10, 500, 1000, 0});
     
     auto k1 = *new FiniteKartesianPSet(set1, set2);
 
     MyRel mr{k1};
-    // const Set& dom = mr.Domain();
-    // const Set& range = mr.Range();
-
     auto pf = mr.FunctionForm();
-
     cout << pf << endl;
+}
+test(testSymbolicGenerator)
+    const FiniteOrderedSet set1 = Symbolics{}.Generate(GenParams{0, 900, 500, 1000, 0});
+    cout << "length = " << set1.Size.Count() << endl;
+    cout << set1 << endl;
 }
 
 ////////////////////////////////////////////////////////
@@ -382,15 +384,16 @@ void go_test() {
     // testFiniteIntersect_InfiniteSumInfinite();    
     // testGenerator();
     // testDivisionExample();
-    // testQuantifikatorExample();
-    testPrimeQuantifikatorExample();
-    // testGeneratorFiniteInfiniteIntersect();
-    // testOddExample();
-    testKartesianProduct();
-    testRelationDomain();
-    testRelationProps();
-    // testExceptions();
-    testFiniteOrderedPair();
-    testAbstractionClass();
-    testRelationFunctionForm();
+    // // testQuantifikatorExample();
+    // testPrimeQuantifikatorExample();
+    // // testGeneratorFiniteInfiniteIntersect();
+    // // testOddExample();
+    // testKartesianProduct();
+    // testRelationDomain();
+    // testRelationProps();
+    // // testExceptions();
+    // testFiniteOrderedPair();
+    // testAbstractionClass();
+    // testRelationFunctionForm();
+    testSymbolicGenerator();
 }
