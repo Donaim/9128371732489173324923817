@@ -1,14 +1,15 @@
 #include "test.cpp"
-int main(void){ std::cout << "START" << std::endl;
+using namespace std;
+int main(void){ cout << "START" << endl;
 
     try {
         go_test();
     }
-    catch (const std::exception &ex) {
-        cerr << ex.what() << std::endl;
+    catch (const exception &ex) {
+        cerr << ex.what() << endl;
     }
-    catch (const std::exception * ex) {
-        cerr << ex->what() << std::endl;
+    catch (const exception * ex) {
+        cerr << ex->what() << endl;
     }
 
     return 0;

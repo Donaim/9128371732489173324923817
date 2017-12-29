@@ -261,7 +261,7 @@ test(testOddExample)
 
 test(testKartesianProduct)
     const FiniteOrderedSet set1 = Naturals{}.Generate(GenParams{1, 3, 500, 1000, 0});
-    const FiniteOrderedSet set2 = Naturals{}.Generate(GenParams{4, 3, 500, 1000, 0});
+    const FiniteOrderedSet set2 = Symbolics{}.Generate(GenParams{1, 3, 500, 1000, 0});
     // cout << "set1.Count() = " << set1.Count() << endl;
     // cout << "set2.Count() = " << set2.Count() << endl;
     
@@ -282,15 +282,18 @@ public:
         int y = Natural::C(b);
 
         // return x <= y;
-        return x % y == 0;
+        // return x % y == 0;
+
+        return (x <= 5 && y <= 5 && x == y) || (x > 5 && y > 5 && ( ( x + y ) % 2 == 0 ) );
+
         // return (x + y) % 2 == 0;
         // return x == y - 1;
     }
 };
 
 test(testRelationDomain)
-    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 5, 500, 1000, 0});
-    const FiniteSet set2 = Naturals{}.Generate(GenParams{1, 5, 500, 1000, 0});
+    const FiniteSet set1 = Naturals{}.Generate(GenParams{1, 10, 500, 1000, 0});
+    const FiniteSet set2 = Naturals{}.Generate(GenParams{1, 10, 500, 1000, 0});
     
     auto k1 = *new FiniteKartesianPSet(set1, set2);
 
@@ -330,7 +333,7 @@ test(testExceptions)
 
 test(testFiniteOrderedPair)
     const FiniteOrderedSet set1 = Naturals{}.Generate(GenParams{1, 3, 500, 1000, 0});
-    const FiniteOrderedSet set2 = Naturals{}.Generate(GenParams{4, 3, 500, 1000, 0});
+    const FiniteOrderedSet set2 = Symbolics{}.Generate(GenParams{1, 3, 500, 1000, 0});
     // cout << "set1.Count() = " << set1.Count() << endl;
     // cout << "set2.Count() = " << set2.Count() << endl;
     
@@ -374,26 +377,26 @@ test(testSymbolicGenerator)
 ////////////////////////////////////////////////////////
 
 void go_test() {
-    // testFiniteContains();
-    // testFiniteIncludes();
-    // testPrinting();
-    // testFiniteSum();
-    // testFiniteIntersect();
-    // testFiniteInfiniteIntersect();
-    // testFiniteInfiniteSubstract();
-    // testFiniteIntersect_InfiniteSumInfinite();    
-    // testGenerator();
-    // testDivisionExample();
+    // // testFiniteContains();
+    // // testFiniteIncludes();
+    // // testPrinting();
+    // // testFiniteSum();
+    // // testFiniteIntersect();
+    // // testFiniteInfiniteIntersect();
+    // // testFiniteInfiniteSubstract();
+    // // testFiniteIntersect_InfiniteSumInfinite();    
+    // // testGenerator();
+    // // testDivisionExample();
     // // testQuantifikatorExample();
-    // testPrimeQuantifikatorExample();
-    // // testGeneratorFiniteInfiniteIntersect();
-    // // testOddExample();
-    // testKartesianProduct();
-    // testRelationDomain();
-    // testRelationProps();
-    // // testExceptions();
-    // testFiniteOrderedPair();
-    // testAbstractionClass();
-    // testRelationFunctionForm();
-    testSymbolicGenerator();
+    testPrimeQuantifikatorExample();
+    // testGeneratorFiniteInfiniteIntersect();
+    // testOddExample();
+    testKartesianProduct();
+    testRelationDomain();
+    testRelationProps();
+    // testExceptions();
+    testFiniteOrderedPair();
+    testAbstractionClass();
+    testRelationFunctionForm();
+    // testSymbolicGenerator();
 }
